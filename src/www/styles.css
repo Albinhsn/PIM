@@ -150,7 +150,56 @@ footer p{
     font-weight: 200;
     justify-content: space-between;
 }
+#new-recipe-title{
+    line-height: 40px;
+    font-size: 25px;
+}
+#new-recipe-sub-title{
+    line-height: 30px;
+    font-size: 20px;
+}
+#new-recipe-description{
+    height: 200px;
+    width: 300px;
+    max-width: 300px;
+    max-height: 200px;
+}
+#new-recipe-popup{
+    background-color: cyan;
+    width: 22cm;
+}
 
+#leftside, #rightside{
+    float: left;
+}
+#leftside{
+    min-width: 370px;
+}
+#new-recipe-leftside-header{
+    display:flex;justify-content:center;align-items:center;
+}
+#new-recipe-title{
+   margin-bottom: 10px;
+}
+#new-recipe-sub-title{
+    margin-bottom: 35px;
+}
+#rightside, #leftside{
+    text-align: center;
+}
+#add-ingredient-btn{
+    padding-left: 10px;
+}
+#submit-recipe-btn, #add-ingredient-btn, #new-recipe-add-image-btn{
+    margin-left: 0 !important;
+}
+#new-recipe-difficulty{
+    width: 40px;
+}
+#new-recipe-img{
+    max-width: 5cm;
+    max-height: 5cm;
+}
 
 
 
