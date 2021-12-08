@@ -2,15 +2,9 @@ var ingredientId = 0;
 let ingredientArr = []
 getCategories();
 
-function renderNewRecipe() {
-    html = document.querySelector(".new-recipe")
-    html.innerHTML =
-        `
-    `
-}
-
 function getCategories(arr) {
     categories = ["Chicken", "Pizza", "Vegan", "Chinese", "American"]
+    //renderCategories(arr);
     renderCategories(categories);
 }
 
