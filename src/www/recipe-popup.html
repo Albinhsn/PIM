@@ -19,25 +19,25 @@
                         <h2>Ingredienser:</h2>
                         <button type="button" onClick="addIngredient()" id="add-ingredient-btn">Add ingredient</button>
                     </div>    
-                        <form id="new-recipe-form" action="">
+                        <form id="new-recipe-form">
                         </form>
                 </div>
                 <div id="new-recipe-rightside">
                     <form>
-                        <input type="text" placeholder="Title" id="new-recipe-title"><br>
-                        <input type="text" placeholder="Sub Title" id="new-recipe-sub-title"><br>
+                        <input type="text" placeholder="Title" id="new-recipe-title" value="title"><br>
+                        <input type="text" placeholder="Sub Title" id="new-recipe-sub-title" value="subtitle"><br>
                         <label for="new-recipe-difficulty">Difficulty (1-10):</label>
-                        <input type="number" id="new-recipe-difficulty" min="1" max="10"><br>
+                        <input type="number" id="new-recipe-difficulty" min="1" max="10" value="diffi"><br>
                         <label for="new-recipe-category">Category:</label>
                         <select id="new-recipe-category" name="recipe-category">
                             
                         </select><br>
                         <textarea type="text" placeholder="description" id="new-recipe-description"></textarea><br>
-                        <button type="submit" onClick="submitRecipe()" id="submit-recipe-btn">Submit Recipe</button>
+                        <button type="button" onClick="submitRecipe()" id="submit-recipe-btn">Submit Recipe</button>
                     </form>
                 </div>
             </div>
         </div>
     </body>
-<script type="text/javascript"src="recipe.js"></script>
+<script type="text/javascript"src="new-recipe.js"></script>
 </html>
