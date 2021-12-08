@@ -80,7 +80,8 @@ function submitRecipe() {
         Category: category,
         Description: description,
         Difficulty: difficulty,
-        Image: img
+        Image: img,
+        Ingredients: ingredients
     }
 
     console.log(doc)
