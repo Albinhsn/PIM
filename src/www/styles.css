@@ -165,14 +165,17 @@ footer p{
     max-height: 200px;
 }
 #new-recipe-popup{
-    background-color: cyan;
+    background-color: #F0F9F9;
     width: 22cm;
+    max-width: 22cm;
+    max-height: 12cm;
+    display: inline-block;
 }
 
-#leftside, #rightside{
+#new-recipe-leftside, #new-recipe-rightside{
     float: left;
 }
-#leftside{
+#new-recipe-leftside{
     min-width: 370px;
 }
 #new-recipe-leftside-header{
@@ -184,7 +187,7 @@ footer p{
 #new-recipe-sub-title{
     margin-bottom: 35px;
 }
-#rightside, #leftside{
+#rightside, #leftside, #new-recipe-body{
     text-align: center;
 }
 #add-ingredient-btn{
@@ -197,8 +200,10 @@ footer p{
     width: 40px;
 }
 #new-recipe-img{
+    min-height: 3cm;
+    min-width: 5cm;
     max-width: 5cm;
-    max-height: 5cm;
+    max-height: 3cm;
 }
 
 
