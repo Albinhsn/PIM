@@ -3,12 +3,7 @@
 	padding: 0;
 }
 
-html,body {
-	font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-	font-size: 16px;
-}
-
-.container {
+.cont{
 	background-color: rgb(54, 60, 141);
 	display: flex;
 	align-items: center;
@@ -85,10 +80,8 @@ html,body {
 	width: 100vw;
 	height: 100vh;
 	bottom: 0;
-	z-index: 2;
 	background-color: rgba(0, 0, 0, 0.8);
 	visibility: hidden;
-	opacity: 1;
 }
 
 .popup-inner {
