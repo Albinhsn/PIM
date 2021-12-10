@@ -34,8 +34,8 @@ function generateHTML(results) {
         <img src="${result.recipe.image}" alt="img">
         <div class="flex-container">
           <h1 class="title">${result.recipe.label}</h1>
-          <a class="view-btn" target="_blank" href="${result.recipe.url
-            }">View Recipe</a>
+          <a class="view-btn"  href="#popup
+            ">View Recipe</a>
         </div>
         ${result.recipe.cuisineType.length > 0
                 ? result.recipe.cuisineType.map(cuisine => {

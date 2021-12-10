@@ -166,9 +166,8 @@ footer p{
 }
 #new-recipe-popup{
     background-color: #F0F9F9;
-    width: 22cm;
-    max-width: 22cm;
-    max-height: 12cm;
+    width: 800px;
+    height: 600px;
     display: inline-block;
 }
 #new-recipe-leftside, #new-recipe-rightside{
@@ -387,45 +386,6 @@ footer p{
 	padding: 1rem;
 	position: absolute;
 	right: 15%;
-	bottom: 0;
-	color: #fff;
-	text-decoration: none;
-	background-color: #3dd2e662;
-	z-index: 4;
-}
-
-.button3 {
-	text-decoration: none;
-	font-size: 1rem;
-	padding: 1rem;
-	position: absolute;
-	right: 10%;
-	bottom: 0;
-	color: #fff;
-	text-decoration: none;
-	background-color: #3dd2e662;
-	z-index: 4;
-}
-
-.button4 {
-	text-decoration: none;
-	font-size: 1rem;
-	padding: 1rem;
-	position: absolute;
-	right: 5%;
-	bottom: 0;
-	color: #fff;
-	text-decoration: none;
-	background-color: #3dd2e662;
-	z-index: 4;
-}
-
-.button5 {
-	text-decoration: none;
-	font-size: 1rem;
-	padding: 1rem;
-	position: absolute;
-	right: 0;
 	bottom: 0;
 	color: #fff;
 	text-decoration: none;
