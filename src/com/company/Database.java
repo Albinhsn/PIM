@@ -25,7 +25,7 @@ public class Database {
 
 
 
-    // ---------------- Methods handeling Recipe's posts ---------------- //
+    // ---------------- Methods handling Recipe's posts ---------------- //
 
     // Get list of all recipes' info from recipes table
     public List<Recipe> getRecipes() {
@@ -124,7 +124,7 @@ public class Database {
 
 
 
-    // ---------------- Methods handeling Categories ---------------- //
+    // ---------------- Methods handling Categories ---------------- //
 
     // Get all info from "categories" table
     public List<Category> getCategoies(){
@@ -187,7 +187,7 @@ public class Database {
 
 
 
-    // ---------------- Methods handeling files ---------------- //
+    // ---------------- Methods handling files ---------------- //
 
     // Upload recipe's iamge file to "upload" folder
     public String uploadImage(FileItem image) {
