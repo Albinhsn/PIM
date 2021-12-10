@@ -65,39 +65,13 @@
           <a href="#popup" class="button">bild här</a>
           <div class ="popup" id="popup">
              <div class ="popup-inner">
-                <a href="#popup2" class="button2">X</a>
+                <a href="#popup2" class="button2" onClick="editRecipe()">X</a>
                 <div class="popup__photo">
-                   <img src="pizza.jpg" alt="">
+                   <img src="" alt="" id="specific-recipe-img">
                 </div>
                 <div class="popup__text">
-                   <div class="Title">
-                      <h1>VeggoPizza</h1>
-                      <p3>Jävligt god pizza utan nå kött</p3>
-                   </div>
-                   <h2>Ingredienser</h2>
-                   <p>
-                      Smula jästen i en bunke. Tillsätt vatten, smör-&rapsolja, salt och mjöl.
-                      Arbeta till en smidig deg. Låt jäsa övertäckt ca 30 min. Sätt ugnen på 225°.
-                      Stjälp upp degen på bakplåtspapper och kavla ut. Lägg på fyllning. Grädda i mitten av ugnen i ca 15 min.
-                   </p>
-                   <p2>
-                      <br>Tomater</br>
-                      <br>Mjöl</br>
-                      <br>Salt</br>
-                      <br>Peppar</br>
-                      <br>Oregano</br>
-                      <br>Olivolja</br>
-                      <br>Vitlök</br>
-                   </p2>
-                   <p4>
-                      <br>3 st</br>
-                      <br>3 dl</br>
-                      <br>3 tsk</br>
-                      <br>3 korn</br>
-                      <br>3 blad</br>
-                      <br>3 flaskor</br>
-                      <br>3 st</br>
-                   </p4>
+                   
+                      
                 </div>
                 <a class="popup__close" href="#">X</a>
              </div>
@@ -106,33 +80,7 @@
             <div class ="popup" id="popup2">
               <div class ="popup-inner">
                  <div id="new-recipe-body">
-                    <div id="new-recipe-popup">
-                        <div id="new-recipe-leftside">
-                                <img src="" alt="Image here" id="new-recipe-img">
-                                <input type="file" id="upload" onChange="addImage()"/>
-                            <div id="new-recipe-leftside-header">
-                                <h2>Ingredienser:</h2>
-                                <button type="button" onClick="addIngredient()" id="add-ingredient-btn">Add ingredient</button>
-                            </div>    
-                                <form id="new-recipe-form">
-                                </form>
-                        </div>
-                        <div id="new-recipe-rightside">
-                            <form>
-                                <input type="text" placeholder="Title" id="new-recipe-title" value="title"><br>
-                                <input type="text" placeholder="Sub Title" id="new-recipe-sub-title" value="subtitle"><br>
-                                <label for="new-recipe-difficulty">Difficulty (1-10):</label>
-                                <input type="number" id="new-recipe-difficulty" min="1" max="10" value="difficulty"><br>
-                                <label for="new-recipe-category">Category:</label>
-                                <select id="new-recipe-category" name="recipe-category">
-                                    
-                                </select><br>
-                                <textarea type="text" placeholder="description" id="new-recipe-description"></textarea><br>
-                                <button type="button" onClick="submitRecipe()" id="submit-recipe-btn">Submit Recipe</button>
-                            </form>
-                        </div>
-                    </div>
-                    </div>
+                    
                  <a class="popup__close" href="#">X</a>
               </div>
             
@@ -156,5 +104,6 @@
     <script type="module" src="https://unpkg.com/ionicons@5.1.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule="" src="https://unpkg.com/ionicons@5.1.2/dist/ionicons/ionicons.js"></script>    
     <script type="text/javascript" src="recipeAPI.js"></script>
+    <script type="text/javascript" src="recipe.js"></script>
 </body>
 </html>
