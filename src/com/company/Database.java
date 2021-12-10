@@ -28,22 +28,21 @@ public class Database {
     // ---------------- Methods handeling Recipe's posts ---------------- //
 
     // Get list of all recipes' info from recipes table
-    public List<Recipe> getPosts() {
-        List<Recipe> posts = null;
+    public List<Recipe> getRecipes() {
+        List<Recipe> recipes = null;
 
         try {
             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM recipes");
             ResultSet rs = stmt.executeQuery();
 
-            Recipe[] allFromRS = (Recipe[]) Utils.readResultSetToObject(rs, Recipe[].class);
-            posts = List.of(allFromRS);
+            Recipe[] recipesFromRS = (Recipe[]) Utils.readResultSetToObject(rs, Recipe[].class);
+            recipes = List.of(recipesFromRS);
 
-        } catch (Exception e) {
-            e.printStackTrace();
-
+        } catch (SQLException | JsonProcessingException throwables) {
+            throwables.printStackTrace();
         }
 
-        return posts;
+        return recipes;
     }
 
 
@@ -128,19 +127,19 @@ public class Database {
     // ---------------- Methods handeling Categories ---------------- //
 
     // Get all info from "categories" table
-    public List<Category> getCategory(){
-        List<Category> category = null;
+    public List<Category> getCategoies(){
+        List<Category> categories = null;
 
         try {
             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM categories");
             ResultSet rs = stmt.executeQuery();
-            Category[] resultFromRs = (Category[]) Utils.readResultSetToObject(rs, Category[].class);
-            category = List.of(resultFromRs);
+            Category[] categoriesFromRS = (Category[]) Utils.readResultSetToObject(rs, Category[].class);
+            categories = List.of(categoriesFromRS);
 
         } catch (SQLException | JsonProcessingException throwables) {
             throwables.printStackTrace();
         }
-        return category;
+        return categories;
     }
 
 
