@@ -4,11 +4,11 @@
 
 public class Category {
 
-    // Variable declaration
+    // ----------------------------- Variable declaration ----------------//
     private int id;
     private String name;
 
-    // Constructors
+    // ------------------------ Constructors -----------------------//
     public Category(){
     }
 
@@ -25,7 +25,7 @@ public class Category {
         this.name = name;
     }
 
-    // Getters & Setters
+    // -------------------------- Getters & Setters -----------------------//
     public int getId() {
         return id;
     }
