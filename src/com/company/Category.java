@@ -1,6 +1,8 @@
+package com.company;
+
 // This is the Category class
 // (located at Backend ie. src/com.company/)
-// 2021-12-10 02:06
+// 2021-12-11 02:06
 
 public class Category {
 
@@ -42,4 +44,12 @@ public class Category {
         this.name = name;
     }
 
+    // Override modification as/if needed
+    @Override
+    public String toString() {
+        return "Category{" +
+                "id=" + id +
+                ", name=" + name +
+                '}' + '\n';
+    }
 }
