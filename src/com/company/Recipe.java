@@ -1,10 +1,10 @@
 // This is the own recipe class (recipe component)
 // (located at Backend ie. src/com.company/)
-// 2021-12-10 01:57
+// 2021-12-11 01:57
 
 
 public class Recipe {
-    // Variable declaration
+    // ---------------------------- Variable declaration -------------------//
     private int id;
     private String name;
     private int category_id;
@@ -15,7 +15,7 @@ public class Recipe {
     private String image_url;
 
 
-    // Constructors
+    // ----------------------------- Constructors ------------------------//
     public Recipe() {
     }
 
@@ -108,7 +108,7 @@ public class Recipe {
     }
 
 
-    // Getters & Setters
+    // ----------------------- Getters & Setters --------------------------//
     public int getId() {
         return id;
     }
