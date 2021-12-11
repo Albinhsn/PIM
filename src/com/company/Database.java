@@ -1,13 +1,15 @@
+package com.company;
+
 // This is the Database class
 // located at Backend ie. src/com.company/
 // 2021-12-11 02:18
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import express.utils.Utils;
 import org.apache.commons.fileupload.FileItem;
 import java.io.FileOutputStream;
 import java.nio.file.Paths;
 import java.sql.*;
-import java.time.Instant;
 import java.util.List;
 
 public class Database {
@@ -71,11 +73,11 @@ public class Database {
     public void createRecipe(Recipe recipe) {
 
         try {
-            PreparedStatement stmt = conn.prepareStatement("INSERT INTO recipes (name, category_id, difficulty, ingrediens, description, length_minutes, image_url) VALUES(?, ?, ?, ?, ?, ?, ?)");  // using "?" to dismiss possibility of sql injection
+            PreparedStatement stmt = conn.prepareStatement("INSERT INTO recipes (name, category_id, difficulty, ingredients, description, length_minutes, image_url) VALUES(?, ?, ?, ?, ?, ?, ?)");  // using "?" to dismiss possibility of sql injection
             stmt.setString(1, recipe.getName());
-            stmt.setInt(2, recipe.getCategory_Id());
+            stmt.setInt(2, recipe.getCategoryId());
             stmt.setInt(3, recipe.getDifficulty());
-            stmt.setString(4, recipe.getIngrediens());
+            stmt.setString(4, recipe.getIngredients());
             stmt.setString(5, recipe.getDescription());
             stmt.setInt(6, recipe.getLength_minutes());
             stmt.setString(7, recipe.getImage_url());
@@ -92,11 +94,12 @@ public class Database {
 
         try {
 
-            PreparedStatement stmt1 = conn.prepareStatement("UPDATE recipes SET name = ?, category_id = ?, difficulty = ?, ingrediens = ?, description = ?, length_minutes = ?, image_url = ? WHERE id = ?");
+            PreparedStatement stmt = conn.prepareStatement("UPDATE recipes SET (name, category_id, difficulty, ingredients, description, length_minutes, image_url) VALUES(?, ?, ?, ?, ?, ?, ?) WHERE id = ?");
+            //             PreparedStatement stmt = conn.prepareStatement("UPDATE recipes SET name = ?, category_id = ?, difficulty = ?, ingredients = ?, description = ?, length_minutes = ?, image_url = ? WHERE id = ?");
             stmt.setString(1, recipe.getName());
-            stmt.setInt(2, recipe.getCategory_id());
+            stmt.setInt(2, recipe.getCategoryId());
             stmt.setInt(3, recipe.getDifficulty());
-            stmt.setString(4, recipe.getIngrediens());
+            stmt.setString(4, recipe.getIngredients());
             stmt.setString(5, recipe.getDescription());
             stmt.setInt(6, recipe.getLength_minutes());
             stmt.setString(7, recipe.getImage_url());
@@ -208,15 +211,15 @@ public class Database {
 
     // ---------------- Methods handling files ---------------- //
 
-    // Upload recipe's iamge file to "upload" folder
+    // Upload recipe's image file to "upload" folder
     public String uploadImage(FileItem image) {
-        // the uploads folder in the "www" directory is accessible from the website
+        // the upload folder in the "www" directory is accessible from the website
         // because the whole "www" folder gets served, with all its content
 
         // get filename with file.getName()
         String image_url = "/uploads/" + image.getName();
 
-        // open an ObjectOutputStream with the path to the uploads folder in the "www" directory
+        // open an ObjectOutputStream with the path to the upload folder in the "www" directory
         try (var os = new FileOutputStream(Paths.get("src/www" + image_url).toString())) {
             // get the required byte[] array to save to a file
             // with file.get()
