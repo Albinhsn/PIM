@@ -121,6 +121,43 @@ function renderSpecificRecipe(data){
              </div>
         `
 }
+function getCurrentRecipe() {
+    recipeState.Title = document.querySelector("#specific-recipe-title").innerHTML
+
+    if (document.querySelector("#specific-recipe-difficulty").innerHTML == 'undefined') {
+        recipeState.Difficulty = 1
+    } else {
+        recipeState.Difficulty = document.querySelector("#specific-recipe-difficulty").innerHTML
+    }
+    if (document.querySelector("#specific-recipe-category").innerHTML == 'undefined') {
+        recipeState.Category = ""
+    } else {
+        recipeState.Category = document.querySelector("#specific-recipe-category").innerHTML
+    }
+
+    if (document.querySelector("#specific-recipe-description").innerHTML == 'undefined') {
+        recipeState.Description = ""
+    } else {
+        recipeState.Description = document.querySelector("#specific-recipe-description").innerHTML
+    }
+    if (document.querySelector("#specific-recipe-subtitle").innerHTML == 'undefined') {
+        recipeState.Subtitle = ""
+    } else {
+        recipeState.Subtitle = document.querySelector("#specific-recipe-subtitle").innerHTML
+    }
+    recipeState.Image = document.querySelector("#specific-recipe-img").src
+    coll = document.getElementById("specific-recipe-ingredients").getElementsByTagName("li")
+    console.log(coll.length)
+    recipeState.Ingredients = []
+    for (let x = 1; x < coll.length + 1; x++) {
+        let doc = {
+            Name: document.querySelector(`#specific-ingredient-name${x}`).innerHTML,
+            Amount: document.querySelector(`#specific-ingredient-amount${x}`).innerHTML
+        }
+        recipeState.Ingredients.push(doc)
+    }
+    console.log(recipeState)
+}
 function editRecipe() {
     let html = document.querySelector("#new-recipe-body")
     html.innerHTML = "";
