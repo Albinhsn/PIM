@@ -28,8 +28,6 @@
             </div>
         </div>  
     </header>
-    
-    </header> 
             <div class="container start">
           <form id="home-search-bar" class="form">
             <input type="text" placeholder="Search Your Recipe..." id="input">
@@ -38,31 +36,10 @@
           <div class="search-result">                            
           </div>
           <h1 class="ortry">Or try searching for:</h1>
-            <div class="search-result-c">
-                  <div class="item">
-                      <img src="./vegitarien.jpg" alt="">
-                      <div class="flex-container">
-                        <h1 class="title">Vegetarian</h1>
-                        <button class="view-btn" href="#" onClick="search(this.id)" id="vegetarian">Search</button>
-                      </div>                
-                  </div>
-                  <div class="item">
-                    <img src="./beef.jpg" alt="">
-                    <div class="flex-container">
-                      <h1 class="title">Beef / Pork</h1>
-                      <button class="view-btn" href="#" onClick="search(this.id)" id="beef">Search</button>
-                    </div>                
-                  </div>
-                  <div class="item">
-                    <img src="./chicken.jpg" alt="">
-                    <div class="flex-container">
-                      <h1 class="title">Chicken</h1>
-                      <button class="view-btn" href="#" onClick="search(this.id)" id="chicken">Search</button>
-                    </div>
-                  </div>
+            <div class="search-result-c" id="meatCategory">
+                
             </div>
         </div>
-          <a href="#popup" class="button">bild här</a>
           <div class ="popup" id="popup">
              <div class ="popup-inner">
                 <a href="#popup2" class="button2" onClick="editRecipe()">X</a>
@@ -70,8 +47,6 @@
                    <img src="" alt="" id="specific-recipe-img">
                 </div>
                 <div class="popup__text">
-                   
-                      
                 </div>
                 <a class="popup__close" href="#">X</a>
              </div>
@@ -104,5 +79,6 @@
     <script nomodule="" src="https://unpkg.com/ionicons@5.1.2/dist/ionicons/ionicons.js"></script>    
     <script type="text/javascript" src="recipeAPI.js"></script>
     <script type="text/javascript" src="recipe.js"></script>
+    <script type="text/javascript" src="test.js"></script>
 </body>
 </html>
