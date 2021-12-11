@@ -1,6 +1,26 @@
+import recipeAPI from "./recipeAPI";
 var ingredientId = 0;
 let ingredientArr = []
 getCategories();
+let recipeState = {
+    Title: '',
+    Subtitle: '',
+    Difficulty: 1,
+    Category: '',
+    Description: '',
+    Ingredients: [],
+    Image: ''
+}
+function setState(data){
+    recipeState.Title = data.Title
+    recipeState.Subtitle = data.Subtitle
+    recipeState.Difficulty = data.Difficulty
+    recipeState.Category = data.Category
+    recipeState.Description = data.Description
+    recipeState.Ingredients = data.Ingredients
+    recipeState.Image = data.Image
+}
+
 
 function getCategories(arr) {
     categories = ["Chicken", "Pizza", "Vegan", "Chinese", "American"]
