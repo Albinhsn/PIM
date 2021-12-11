@@ -43,7 +43,6 @@ public class Database {
         } catch (SQLException | JsonProcessingException throwables) {
             throwables.printStackTrace();
         }
-
         return recipes;
     }
 

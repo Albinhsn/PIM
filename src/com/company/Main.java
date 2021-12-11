@@ -12,6 +12,8 @@ import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.List;
 
+
+
 public class Main {
 
     public static void main(String[] args) {
@@ -34,6 +36,7 @@ public class Main {
         // Getting the list of all recipes using Recipe.java class, responding in json
         app.get("/rest/recipes", (req, res) -> {
             List<Recipe> recipes = db.getRecipes();
+            System.out.println(recipes);
             res.json(recipes);
         });
 
