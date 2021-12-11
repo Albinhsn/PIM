@@ -1,3 +1,5 @@
+package com.company;
+
 // This is the Main class
 // located at Backend ie. src/com.company/
 // 2021-12-11 02:18
@@ -23,6 +25,10 @@ public class Main {
         // res = response which means the response from the server
 
 
+        // Hello World
+        app.get ("/", (req, res) -> {
+            res.send("Hello World");
+        });
         // ---------------- Methods handling Recipes ---------------- //
 
         // Getting the list of all recipes using Recipe.java class, responding in json
@@ -54,7 +60,8 @@ public class Main {
         // Updating an existing recipe
         app.put("/rest/recipes/:id", (req, res) -> {
             Recipe recipe = (Recipe) req.getBody(Recipe.class);
-            db.updateRecipe(recipe.getId(), recipe.getName(), recipe.getCategoryId(), recipe.getDifficulty(), recipe.getIngrediens(), recipe.getDescription(), recipe.getLengthMinutes(), recipe.getImage_url());
+            //db.updateRecipe(recipe.getId(), recipe.getName(), recipe.getCategoryId(), recipe.getDifficulty(), recipe.getIngredients(), recipe.getDescription(), recipe.getLength_minutes(), recipe.getImage_url());
+            db.updateRecipe(recipe);
             res.send("Update recipe OK");
         });
 
@@ -93,19 +100,19 @@ public class Main {
         });
 
 
-       // ************************** two following "category" methods are not verified ********************** //
+        // ************************** two following "category" methods are not verified ********************** //
         // Updating an existing category
-        app.put("/rest/categories/:id", (request, response) -> {
-            Category list = (Category) request.getBody(Category.class);
-            db.updateCategory(list.getId(), list.getName());
-            response.send("Category name update OK");
+        app.put("/rest/categories/:id", (req, res) -> {
+            Category category = (Category) req.getBody(Category.class);
+            db.updateCategory(category);
+            res.send("Category name update OK");
         });
 
         // Deleting an existing category
-        app.delete("/rest/categories/:id", (request, response) -> {
-            Category list = (Category) request.getBody(Category.class);
+        app.delete("/rest/categories/:id", (req, res) -> {
+            Category list = (Category) req.getBody(Category.class);
             db.deleteCategory(list.getId());
-            response.send("Delete category OK");
+            res.send("Delete category OK");
         });
 
 
@@ -129,46 +136,31 @@ public class Main {
             res.send(image_url);
         });
 
-
-
-
-
         // *************************** following "file" methods are not verified  *********************//
 
         // Getting list of "uploaded files" from database
-        app.get("/rest/files", (req, res) -> {
-            List<File> files = db.getFiles();
-            res.json(files);
-        });
+//        app.get("/rest/files", (req, res) -> {
+//            List<File> files = db.getFiles();
+//            res.json(files);
+//        });
 
-        // Adding image to the uploads folder
-        app.post("/rest/file-upload", (req, res) -> {
-            String image_url = null;
-            try{
-                List<FileItem> files = req.getFormData("files");
-                image_url = db.uploadImage(files.get(0));
-            } catch (Exception e) {
-                System.out.println("No image was uploaded");
-            }
-            res.send("Image upload OK");
-        });
+       // Adding file to database
+//        app.post("/rest/files", (req, res) -> {
+//            File file = (File) req.getBody(File.class);
+//            db.createFile(file);
+//            res.send("Adding image OK");
+//        });
 
-        // Adding file to database
-        app.post("/rest/files", (req, res) -> {
-            File file = (File) req.getBody(File.class);
-            db.createFile(file);
-            res.send("Adding image OK");
-        });
-
-        // Deleting file from database
-        app.delete("/rest/files/:id", (request, response) -> {
-            File file = (File) request.getBody(File.class);
-            db.deleteFile(file.getId());
-            response.send("Delete image OK");
-        });
+       // Deleting file from database
+//        app.delete("/rest/files/:id", (request, response) -> {
+//            File file = (File) request.getBody(File.class);
+//            db.deleteFile(file.getId());
+//            response.send("Delete image OK");
+//        });
 
 
 
+// ---------------- Public Directory Path definition using Middleware---------------- //
 
         // Middleware to be able to serve both the html/css/js files and the uploads folder.
         // Here the PATH to the location of the index.html on the server
@@ -180,8 +172,8 @@ public class Main {
 
 
 
-        // Starting the server and assigning port
-        app.listen(3000);
-        System.out.println("Server started on port 3000");
+// -------------------------- Starting the server and assigning port -------------------//
+        app.listen(2021);
+        System.out.println("Server started on port 2021");
     }
 }
