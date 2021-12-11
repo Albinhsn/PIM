@@ -1,6 +1,6 @@
 // This is the Database class
 // located at Backend ie. src/com.company/
-// 2021-12-10 02:18
+// 2021-12-11 02:18
 
 import express.utils.Utils;
 import org.apache.commons.fileupload.FileItem;
@@ -25,9 +25,9 @@ public class Database {
 
 
 
-    // ---------------- Methods handling Recipe's posts ---------------- //
+    // ---------------- Methods handling Recipes ---------------- //
 
-    // Get list of all recipes' info from recipes table
+    // 1 - Get list of all recipes' info from recipes table
     public List<Recipe> getRecipes() {
         List<Recipe> recipes = null;
 
@@ -46,71 +46,71 @@ public class Database {
     }
 
 
-    // Select a specific recipe by its ID
-    public Recipe getPostById(int id) {
-        Recipe post = null;
+    // 2 - Getting the recipe's info using it's ID (or other parameters like "name", "difficulty", "length_minutes")
+    public Recipe getRecipeById(int id) {
+        Recipe recipe = null;
 
         try {
             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM recipes WHERE id = ?");
             stmt.setInt(1, id);
+
             ResultSet rs = stmt.executeQuery();
 
-            Recipe[] idFromRS = (Recipe[]) Utils.readResultSetToObject(rs, Recipe[].class);
-            post = idFromRS[0];
+            Recipe[] recipeFromRS = (Recipe[]) Utils.readResultSetToObject(rs, Recipe[].class);
+            recipe = recipeFromRS[0];
 
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        return post;
+        return recipe;
     }
 
 
-
-    // Create new post in "recipes" table
-    public void createPost(Recipe post) {
+    // 3 - Create new recipe in "recipes" table
+    public void createRecipe(Recipe recipe) {
 
         try {
-            PreparedStatement stmt = conn.prepareStatement("INSERT INTO recipes (name,category_id,difficulty,ingrediens,description,length_minutes,image_url) VALUES(?, ?, ?, ?, ?, ?, ?)");
-            stmt.setString(1, post.getName());
-            stmt.setInt(2, post.getCategory_Id());
-            stmt.setInt(3, post.getDifficulty());
-            stmt.setString(4, post.getIngrediens());
-            stmt.setString(5, post.getDescription());
-            stmt.setInt(6, post.getLength_minutes());
-            stmt.setString(7, post.getImage_url());
+            PreparedStatement stmt = conn.prepareStatement("INSERT INTO recipes (name, category_id, difficulty, ingrediens, description, length_minutes, image_url) VALUES(?, ?, ?, ?, ?, ?, ?)");  // using "?" to dismiss possibility of sql injection
+            stmt.setString(1, recipe.getName());
+            stmt.setInt(2, recipe.getCategory_Id());
+            stmt.setInt(3, recipe.getDifficulty());
+            stmt.setString(4, recipe.getIngrediens());
+            stmt.setString(5, recipe.getDescription());
+            stmt.setInt(6, recipe.getLength_minutes());
+            stmt.setString(7, recipe.getImage_url());
 
             stmt.executeUpdate();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-
-    // Update a recipe
-    public void updatePost(int id,String name,int category_id ,int difficulty,String ingrediens,String description, int length_minutes,String imageURL){
-
-        try {
-
-            PreparedStatement stmt1 = conn.prepareStatement("UPDATE recipes SET name = ?, category_id = ?, difficulty = ?, ingrediens = ?, description = ?, length_minutes = ?, imageURL = ? WHERE id = ?");
-            stmt1.setString(1,name);
-            stmt1.setInt(2,category_id);
-            stmt1.setInt(3,difficulty);
-            stmt1.setString(4,ingrediens);
-            stmt1.setString(5,description);
-            stmt1.setInt(6,length_minutes);
-            stmt1.setString(7,image_url);
-            stmt1.setInt(8,id);
-            stmt1.executeUpdate();
-
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
     }
 
 
-    // Delete recipe from "recipes" table by ID
-    public void deletePost(int id){
+    // 4 - Update a recipe
+    public void updateRecipe(Recipe recipe){
+
+        try {
+
+            PreparedStatement stmt1 = conn.prepareStatement("UPDATE recipes SET name = ?, category_id = ?, difficulty = ?, ingrediens = ?, description = ?, length_minutes = ?, image_url = ? WHERE id = ?");
+            stmt.setString(1, recipe.getName());
+            stmt.setInt(2, recipe.getCategory_id());
+            stmt.setInt(3, recipe.getDifficulty());
+            stmt.setString(4, recipe.getIngrediens());
+            stmt.setString(5, recipe.getDescription());
+            stmt.setInt(6, recipe.getLength_minutes());
+            stmt.setString(7, recipe.getImage_url());
+            stmt.setInt(8, recipe.getId());
+            stmt.executeUpdate();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    // 5 - Delete recipe from "recipes" table by ID
+    public void deleteRecipe(int id){
 
         try {
             PreparedStatement stmt = conn.prepareStatement("DELETE FROM recipes WHERE id = ?;");
@@ -126,8 +126,8 @@ public class Database {
 
     // ---------------- Methods handling Categories ---------------- //
 
-    // Get all info from "categories" table
-    public List<Category> getCategoies(){
+    // 1 - Get all info from "categories" table
+    public List<Category> getCategories(){
         List<Category> categories = null;
 
         try {
@@ -143,36 +143,56 @@ public class Database {
     }
 
 
-    // Create new category in "categories" table
-    public void createCategory(Category category){
-        List<Category> categorys = null;   // Note this "s" at the end
+    // 2 - Getting the category using it's ID (or "name")
+    public Category getCategoryById(int id) {
+        Category category = null;
 
         try {
-            PreparedStatement stmt = conn.prepareStatement("INSERT INTO categories (name) values (?)");
+            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM categories WHERE id = ?");
+            stmt.setInt(1, id);
+
+            ResultSet rs = stmt.executeQuery();
+
+            Category[] categoryFromRS = (Category[]) Utils.readResultSetToObject(rs, Category[].class);
+            category = categoryFromRS[0];
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return category;
+    }
+
+
+    // 3 - Create new category in "categories" table
+    public void createCategory(Category category){
+
+        try {
+            PreparedStatement stmt = conn.prepareStatement("INSERT INTO categories (name) VALUES (?)");
             stmt.setString(1,category.getName());
+
             stmt.executeUpdate();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
     }
 
-    // Update a Category's name
-    public void updateCategory(int id, String name){
+    // 4 - Update a Category's name
+    public void updateCategory(Category category){
 
         try {
 
             PreparedStatement stmt = conn.prepareStatement("UPDATE categories SET name = ? WHERE id = ?");
-            stmt.setString(1,name);
-            stmt.setInt(2,id);
+            stmt.setString(1, category.getName());
+            stmt.setInt(2, category.getId());
             stmt.executeUpdate();
 
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
-
-    // Delete category from "categories" table by ID
+    // 5 - Delete category from "categories" table by ID
     public void deleteCategory(int id){
 
         try {
@@ -186,7 +206,6 @@ public class Database {
 
 
 
-
     // ---------------- Methods handling files ---------------- //
 
     // Upload recipe's iamge file to "upload" folder
@@ -195,10 +214,10 @@ public class Database {
         // because the whole "www" folder gets served, with all its content
 
         // get filename with file.getName()
-        String imageURL = "/uploads/" + image.getName();
+        String image_url = "/uploads/" + image.getName();
 
         // open an ObjectOutputStream with the path to the uploads folder in the "www" directory
-        try (var os = new FileOutputStream(Paths.get("src/www" + imageUrl).toString())) {
+        try (var os = new FileOutputStream(Paths.get("src/www" + image_url).toString())) {
             // get the required byte[] array to save to a file
             // with file.get()
             os.write(image.get());
@@ -208,7 +227,7 @@ public class Database {
             return null;
         }
 
-        return imageUrl;
+        return image_url;
     }
 
 
