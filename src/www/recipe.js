@@ -1,7 +1,11 @@
 
 var ingredientId = 0;
 let ingredientArr = []
-getRecipes();
+const APP_ID = "ab24be7e";
+const APP_key = "b34b014d9e8173560752aa70fd8713ee";
+getLocalRecipes();
+
+let recipes = []
 let recipeState = {
     Title: '',
     Subtitle: '',
@@ -12,6 +16,7 @@ let recipeState = {
     Image: '',
     Id: ''
 }
+
 function setState(data){
     recipeState.Title = data.Title
     recipeState.Subtitle = data.Subtitle
@@ -86,13 +91,12 @@ async function createRecipe(){
     })
     console.log(response)
 }
-function renderRecipes(data){
-    console.log(data)
+function renderRecipes(){
+    console.log(recipes)
 }
-async function getRecipes(){
-    let data = await fetch('/rest/recipes')
-    console.log(data)
-    renderRecipes(data)
+async function getLocalRecipes(){
+    recipes = await fetch('/rest/recipes')
+    renderRecipes()
 }
 async function getRecipeByName(name){
     let data = await fetch(`/rest/${name}`)
@@ -108,17 +112,7 @@ function renderSpecificRecipe(data){
     html.innerHTML = "";
     html.innerHTML += 
         `
-            <div class ="popup-inner">
-                <a href="#popup2" class="button2" onClick="editRecipe()">X</a>
-                <div class="popup__photo">
-                   <img src="${recipeState.Image}" alt="" id="specific-recipe-img">
-                </div>
-                <div class="popup__text">
-                   
-                      
-                </div>
-                <a class="popup__close" href="#">X</a>
-             </div>
+          
         `
 }
 function getCurrentRecipe() {
@@ -237,3 +231,16 @@ function updateRecipe() {
 
     console.log(recipeState)
 }
+
+async function fetchAPI(x) {
+    const baseURL = `https://api.edamam.com/search?q=${x}&app_id=${APP_ID}&app_key=${APP_key}&from=0&to=12`;
+    const response = await fetch(baseURL);
+    const data = await response.json();
+    setAPIrecipes(data)
+}
+function setAPIrecipes(data){
+    console.log(data)
+}
+
+
+

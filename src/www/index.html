@@ -70,7 +70,17 @@
             <div class ="popup" id="popup2">
               <div class ="popup-inner">
                  <div id="new-recipe-body">
-                    
+                      <div class ="popup-inner">
+                <a href="#popup2" class="button2" onClick="editRecipe()">X</a>
+                <div class="popup__photo">
+                   <img src="${recipeState.Image}" alt="" id="specific-recipe-img">
+                </div>
+                <div class="popup__text">
+                   
+                      
+                </div>
+                <a class="popup__close" href="#">X</a>
+             </div>
                  <a class="popup__close" href="#">X</a>
               </div>
             
@@ -93,7 +103,6 @@
     <!--<script src="https://unpkg.com/ionicons@5.1.2/dist/ionicons.js"></script>-->
     <script type="module" src="https://unpkg.com/ionicons@5.1.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule="" src="https://unpkg.com/ionicons@5.1.2/dist/ionicons/ionicons.js"></script>    
-    <script type="text/javascript" src="recipeAPI.js"></script>
     <script type="text/javascript" src="recipe.js"></script>
 </body>
 </html>
