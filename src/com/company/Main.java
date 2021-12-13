@@ -4,8 +4,8 @@ import express.Express;
 import express.middleware.Middleware;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.nio.file.Paths;
+import java.sql.Array;
 import java.util.List;
 import java.util.HashMap;
 import java.net.*;
@@ -21,8 +21,8 @@ public class Main {
 
         Express app = new Express();
         Database db = new Database();
-        HashMap<String, String> testar = new HashMap<>();
-        testar.put("jaha", "test");
+        HashMap<String, String> body = new HashMap<>();
+        //testar.put("jaha", "test");
 
         //List<User> users = new ArrayList<User>();
 
@@ -59,9 +59,27 @@ public class Main {
         });
 
         app.get("/rest/users", (req, res) -> {
-            String search = "%" + req.getBody("search") + "%";
+            String search = "";
+            String[] col = {};
+            if (req.getQuery("name") != null) {
+                 search = "%" + req.getQuery("name") + "%";
+                 col[0] = "name";
+            }
+            else {
+                search = "%" + req.getQuery("id") + "%";
+                col[1] = "id";
+                System.out.println(search);
+            }
+            //res.send(search);
+           /* String body2 = req.getBody().toString();
+            String search = body2.replace("{", "");
+            search = search.replace("}", "");
+            //res.send(search);
+            res.send(search);
+            System.out.println(body);*/
 
-            List<User> users = db.getUsers(search);
+
+            List<User> users = db.getUsers(col, search);
 
             res.json(users);
         });
