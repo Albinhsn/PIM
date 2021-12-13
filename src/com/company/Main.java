@@ -59,7 +59,7 @@ public class Main {
         });
 
         app.get("/rest/users", (req, res) -> {
-            String search = "%" + req.getQuery("search") + "%";
+            String search = "%" + req.getBody("search") + "%";
 
             List<User> users = db.getUsers(search);
 

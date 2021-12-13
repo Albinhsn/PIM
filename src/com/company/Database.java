@@ -20,13 +20,13 @@ public class Database {
 
     public List<User> getUsers(String search) {
         List<User> users = null;
+        String test = "name";
 
         try {
 
-            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM users WHERE name LIKE ?");
-            //stmt.setString(1, "name");
-
-            stmt.setString(1, search);
+            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM users WHERE ? LIKE ?");
+            stmt.setString(1, test);
+            stmt.setString(2, search);
             ResultSet rs = stmt.executeQuery();
 
             User[] usersFromRS = (User[]) Utils.readResultSetToObject(rs, User[].class);
