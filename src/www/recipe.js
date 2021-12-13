@@ -1,38 +1,48 @@
-
 var ingredientId = 0;
 let ingredientArr = []
 const APP_ID = "ab24be7e";
 const APP_key = "b34b014d9e8173560752aa70fd8713ee";
+
 getLocalRecipes();
-
+//Array for collection of recipes (local or api)
 let recipes = []
+//Init recipeState
 let recipeState = {
-    Title: '',
-    Subtitle: '',
-    Difficulty: 1,
-    Category: '',
-    Description: '',
-    Ingredients: [],
-    Image: '',
-    Id: ''
+    id: 1,
+    name: "",
+    category_id: 1,
+    difficulty: 2,
+    ingredients: "",
+    description: "",
+    length_minutes: 1,
+    image_url: ""
+}
+function setState(data) {
+    recipeState.name = data.name
+    recipeState.length_minutes = data.length_minutes
+    recipeState.difficulty = data.difficulty
+    recipeState.category_id = data.category
+    recipeState.description = data.description
+    recipeState.ingredients = data.ingredients
+    recipeState.image_url = data.image_url
+}
+function clearRecipeState(){
+    recipeState = {
+        name: '',
+        length_minutes: 1,
+        difficulty: 1,
+        category: '',
+        description: '',
+        ingredients: [],
+        image_url: '',
+        id: ''
+    }
+    setState(recipeState)
 }
 
-function setState(data){
-    recipeState.Title = data.Title
-    recipeState.Subtitle = data.Subtitle
-    recipeState.Difficulty = data.Difficulty
-    recipeState.Category = data.Category
-    recipeState.Description = data.Description
-    recipeState.Ingredients = data.Ingredients
-    recipeState.Image = data.Image
-}
-function getAPIrecipes(id){
-
-}
 
 function getCategories(arr) {
     categories = ["Chicken", "Pizza", "Vegan", "Chinese", "American"]
-    //renderCategories(arr);
     renderCategories(categories);
 }
 
@@ -50,6 +60,7 @@ function renderCategories(categories) {
         `
     }
 }
+//Adds another input element for ingredient
 function addIngredient() {
     html = document.querySelector("#new-recipe-form")
     html.innerHTML +=
@@ -64,6 +75,7 @@ function addIngredient() {
     ingredientArr.push(ingredientId)
     ingredientId += 1;
 }
+//Removes an input element for ingredient
 function removeIngredient(parent) {
     id = parent.parentNode.id;
     html = document.querySelector(`#${id}`)
@@ -74,7 +86,7 @@ function removeIngredient(parent) {
         ingredientArr.splice(index, 1)
     }
 }
-
+//Add image to input form
 function addImage() {
     var image = document.getElementById("upload").files[0];
 
@@ -84,82 +96,89 @@ function addImage() {
     }
     reader.readAsDataURL(image);
 }
-async function createRecipe(){
-    let response = await fetch('/rest/recipes',{
-        method: 'POST',
+//Sends delete request for current recipestate
+async function deleteRecipe(){
+    let response = await fetch(`/rest/recipes/${recipeState.id}`, {
+        method: 'DELETE',
         body: recipeState
     })
     console.log(response)
 }
+//Renders the current array of recipes
 function renderRecipes(){
     console.log(recipes)
-}
-async function getLocalRecipes(){
-    recipes = await fetch('/rest/recipes')
-    renderRecipes()
-}
-async function getRecipeByName(name){
-    let data = await fetch(`/rest/${name}`)
-    console.log(data)
-    setState(data)
-}
-function deleteRecipe(id){
-    let deleteResponse = await fetch(`/rest/recipes/${id}`)
-    console.log(deleteResponse)
-}
-function renderSpecificRecipe(data){
-    let html = document.querySelector("#popup")
-    html.innerHTML = "";
-    html.innerHTML += 
+    let generatedHTML = "";
+    recipes.map((recipe =>{
+        generatedHTML +=
         `
-          
-        `
-}
-function getCurrentRecipe() {
-    recipeState.Title = document.querySelector("#specific-recipe-title").innerHTML
-
-    if (document.querySelector("#specific-recipe-difficulty").innerHTML == 'undefined') {
-        recipeState.Difficulty = 1
-    } else {
-        recipeState.Difficulty = document.querySelector("#specific-recipe-difficulty").innerHTML
-    }
-    if (document.querySelector("#specific-recipe-category").innerHTML == 'undefined') {
-        recipeState.Category = ""
-    } else {
-        recipeState.Category = document.querySelector("#specific-recipe-category").innerHTML
-    }
-
-    if (document.querySelector("#specific-recipe-description").innerHTML == 'undefined') {
-        recipeState.Description = ""
-    } else {
-        recipeState.Description = document.querySelector("#specific-recipe-description").innerHTML
-    }
-    if (document.querySelector("#specific-recipe-subtitle").innerHTML == 'undefined') {
-        recipeState.Subtitle = ""
-    } else {
-        recipeState.Subtitle = document.querySelector("#specific-recipe-subtitle").innerHTML
-    }
-    recipeState.Image = document.querySelector("#specific-recipe-img").src
-    coll = document.getElementById("specific-recipe-ingredients").getElementsByTagName("li")
-    console.log(coll.length)
-    recipeState.Ingredients = []
-    for (let x = 1; x < coll.length + 1; x++) {
-        let doc = {
-            Name: document.querySelector(`#specific-ingredient-name${x}`).innerHTML,
-            Amount: document.querySelector(`#specific-ingredient-amount${x}`).innerHTML
+            <div class="item">
+        <img src="${recipe.image_url}" alt="img">
+        <div class="flex-container">
+          <h1 class="title">${recipe.name}</h1>
+          <a class="view-btn" onClick="renderSpecificRecipe('${recipe.name}')" href="#popup">View Recipe</a>
+        </div>
+        ${recipe.category != undefined
+            ? `${recipe.category}`
+            : "No cuisine found"
         }
-        recipeState.Ingredients.push(doc)
-    }
-    console.log(recipeState)
+      </div>  
+        `
+    }))
+    document.querySelector(".search-result").innerHTML = ""
+    document.querySelector(".search-result").innerHTML = generatedHTML
 }
-function editRecipe() {
+//Render specific recipe based on recipeState
+function renderSpecificRecipe(title){
+    for(let x = 0; x<recipes.length; x++){
+        if(recipes[x].name === title){
+            setState(recipes[x])
+        }
+    }
+    let generatedHTML = ""
+    let x = 0;
+    generatedHTML += 
+        `
+        <div class="popup-inner">  
+            <img src="${recipeState.image_url}" alt="Image here" id="new-recipe-img">
+            <div class="Title">
+                <h1 class="popup__text" id="specific-recipe-title">${recipeState.name}</h1>
+                <h3 class="popup__text" id="specific-recipe-length">${recipeState.length_minutes}</h3>
+                <p class="popup_text" id="specific-recipe-description">${recipeState.description}</p>
+                <p class="popup__text" id="specific-recipe-difficulty">${recipeState.difficulty}</p>
+                <p class="popup__text" id="specific-recipe-category">${recipeState.category}</p>
+            </div>
+            <h2>Ingredients:</h2>
+            <ul id="specific-recipe-ingredients">
+                ${recipeState.ingredients.map(ingredient => {
+                    x++;
+                    return (
+                        `<li>
+                        <h4 id="specific-ingredient-name${x}">${ingredient.Name}</h4>
+                        <h4 id="specific-ingredient-amount${x}">${ingredient.Amount}</h4>
+                    </li>`
+                    )
+                })}
+            </ul>
+            <a href="#popup2" class="button2" onClick="editRecipe()">X</a>
+            </div>
+        `
+    let div = document.querySelector("#popup")
+    console.log(div)
+    div.innerHTML = "";
+    div.innerHTML += generatedHTML
+
+}
+
+//Renders a recipe body based on recipeState
+function editRecipe(type) {
+    console.log(recipeState)
     let html = document.querySelector("#new-recipe-body")
     html.innerHTML = "";
     html.innerHTML +=
         `
             <div id="new-recipe-popup">
                 <div id="new-recipe-leftside">
-                        <img src="${recipeState.Image}" alt="Image here" id="new-recipe-img">
+                        <img src="${recipeState.image_url}" alt="Image here" id="new-recipe-img">
                         <input type="file" id="upload" onChange="addImage()"/>
                     <div id="new-recipe-leftside-header">
                         <h2>Ingredienser:</h2>
@@ -170,68 +189,45 @@ function editRecipe() {
                 </div>
                 <div id="new-recipe-rightside">
                     <form>
-                        <input type="text" placeholder="${recipeState.Title}" id="new-recipe-title"><br>
-                        <input type="text" placeholder="${recipeState.Subtitle}" id="new-recipe-sub-title"><br>
+                        <input type="text" placeholder="${recipeState.name}" id="new-recipe-title"><br>
+                        <input type="text" placeholder="${recipeState.length_minutes}" id="new-recipe-length"><br>
                         <label for="new-recipe-difficulty">Difficulty (1-10):</label>
                         <input type="number" id="new-recipe-difficulty" min="1" max="10" placeholder="${recipeState.Difficulty}"><br>
                         <label for="new-recipe-category">Category:</label>
                         <select id="new-recipe-category" name="recipe-category" placeholder="${recipeState.Category}">
                             
                         </select><br>
-                        <textarea type="text" placeholder="${data.Description}" id="new-recipe-description"></textarea><br>
-                        <button type="button" onClick="submitRecipe()"  href="#popup" id="submit-recipe-btn">Submit Recipe</button>
+                        <textarea type="text" placeholder="${recipeState.Description}" id="new-recipe-description"></textarea><br>
+                        <a class="view-btn" onClick="updateRecipe("${type}")"  href="#popup" id="submit-recipe-btn">Submit Recipe!!</a>
                     </form>
                 </div>
             </div>
         `
     let ingredientHTML = document.querySelector("#new-recipe-form")
-    getCategories();
+
     ingredientHTML.innerHTML = "";
-        ingredientId = 0
+    ingredientId = 0
     ingredientArr = []
-    console.log(data.Ingredients.length)
-    for (let x = 0; x < data.Ingredients.length; x++) {
+    console.log(recipeState.ingredients[1])
+    for (let x = 0; x < recipeState.ingredients.length; x++) {
         addIngredient();
-        console.log(ingredientId)
-        console.log(data.Ingredients[x].Name)
         nameHTML = document.querySelector(`#name-ingredient${x}`)
         amountHTML = document.querySelector(`#amount-ingredient${x}`)
         nameHTML.placeholder = ""
         amountHTML.placeholder = ""
-        nameHTML.placeholder = data.Ingredients[x].Name
-        amountHTML.placeholder = data.Ingredients[x].Amount
-        console.log(amountHTML.placeholder)
+        nameHTML.placeholder = recipeState.ingredients[x].Name
+        amountHTML.placeholder = recipeState.ingredients[x].Amount
     }
-
 }
 
 
-
-function updateRecipe() {
-    console.log("submitted recipe")
-    recipeState.Title = document.querySelector("#new-recipe-title").value
-    recipeState.Subtitle = document.querySelector("#new-recipe-sub-title").value
-    recipeState.Description = document.querySelector("#new-recipe-description").value
-    recipeState.Difficulty = document.querySelector("#new-recipe-difficulty").value
-    recipeState.Category = document.querySelector("#new-recipe-category").value
-    recipeState.Image = document.querySelector("#new-recipe-img").src
-    recipeState.Ingredients = []
-    for (let x of ingredientArr) {
-        namn = document.querySelector(`#name-ingredient${x}`).value
-        amount = document.querySelector(`#amount-ingredient${x}`).value
-        recipeState.Ingredients.push(
-            {
-                Namn: namn,
-                Amount: amount
-            })
-    }
-
-
-    
-
-    console.log(recipeState)
+//Creates new form
+function createNewRecipe() {
+    recipeState.name = "Title"
+    recipeState.length_minutes = 1
+    recipeState.description = "Description"
+    editRecipe("post")
 }
-
 async function fetchAPI(x) {
     const baseURL = `https://api.edamam.com/search?q=${x}&app_id=${APP_ID}&app_key=${APP_key}&from=0&to=12`;
     const response = await fetch(baseURL);
@@ -239,8 +235,76 @@ async function fetchAPI(x) {
     setAPIrecipes(data)
 }
 function setAPIrecipes(data){
-    console.log(data)
+    recipes = []
+    for(let x = 0; x<data.hits.length; x++){
+        clearRecipeState();
+        recipeState.name = data.hits[x].recipe.label
+        recipeState.category = data.hits[x].recipe.cuisineType[0]
+        recipeState.image_url = data.hits[x].recipe.image
+        recipeState.description = ""
+        recipeState.difficulty = 0
+        recipeState.length_minutes = ""
+        recipeState.ingredients = []
+        for(let y = 0; y<data.hits[x].recipe.ingredients.length; y++){
+            let doc = {
+                Name: data.hits[x].recipe.ingredients[y].food,
+                Amount: data.hits[x].recipe.ingredients[y].quantity + " " + data.hits[x].recipe.ingredients[y].measure
+            }
+            recipeState.ingredients.push(doc)
+        }
+        recipes.push(recipeState)
+    }
+    renderRecipes();
 }
 
+//Requests for all recipes
+async function getLocalRecipes() {
+    let recipes = []
+    recipes = await fetch('/rest/recipes')
+    renderRecipes()
+}
+//Requets recipe by id
+async function getRecipeByName() {
+    let data = await fetch(`/rest/${recipeState.id}`)
+    console.log(data)
+    setState(data)
+}
+//Delete request for recipe by id
+async function deleteRecipe() {
+    let deleteResponse = await fetch(`/rest/recipes/${recipeState.id}`)
+    console.log(deleteResponse)
+}
+//Posts and update recipe
+async function updateRecipe() {
+    console.log("submitted recipe")
+    recipeState.name = document.querySelector("#new-recipe-title").value
+    recipeState.length_minutes = document.querySelector("#new-recipe-length").value
+    recipeState.description = document.querySelector("#new-recipe-description").value
+    recipeState.difficulty = document.querySelector("#new-recipe-difficulty").value
+    recipeState.category = document.querySelector("#new-recipe-category").value
+    recipeState.image_url = document.querySelector("#new-recipe-img").src
+    recipeState.ingredients = []
+    for (let x of ingredientArr) {
+        namn = document.querySelector(`#name-ingredient${x}`).value
+        amount = document.querySelector(`#amount-ingredient${x}`).value
+        recipeState.ingredients.push(
+            {
+                Namn: namn,
+                Amount: amount
+            })
+        
+        }
+    console.log(JSON.stringify(recipeState))
+    try {
+        let response = await fetch(`/rest/recipes`, {
+            method: 'POST',
+            body: JSON.stringify(recipeState)
+        })
+    } catch (error) {
+        console.log(error)
+    }
+
+    console.log(response)
 
 
+}
