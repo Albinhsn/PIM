@@ -52,6 +52,7 @@ public class Main {
 
         // Creating a new recipe
         app.post("/rest/recipes", (req, res) -> {
+            System.out.println("Sent recipe");
             Recipe recipe = (Recipe) req.getBody(Recipe.class); //type casting
             // System.out.println(recipe.toString()); // checking/testing output at console. Uncomment if needed to use
             db.createRecipe(recipe);

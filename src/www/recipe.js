@@ -2,19 +2,18 @@ var ingredientId = 0;
 let ingredientArr = []
 const APP_ID = "ab24be7e";
 const APP_key = "b34b014d9e8173560752aa70fd8713ee";
-
-getLocalRecipes();
+const categories = ["Chicken", "Pizza", "Vegan", "Chinese", "American"]
 //Array for collection of recipes (local or api)
 let recipes = []
 //Init recipeState
 let recipeState = {
-    id: 1,
+    id: 0,
     name: "",
-    category_id: 1,
-    difficulty: 2,
+    category_id: 0,
+    difficulty: 0,
     ingredients: "",
     description: "",
-    length_minutes: 1,
+    length_minutes: 0,
     image_url: ""
 }
 function setState(data) {
@@ -40,21 +39,11 @@ function clearRecipeState(){
     setState(recipeState)
 }
 
-
-function getCategories(arr) {
-    categories = ["Chicken", "Pizza", "Vegan", "Chinese", "American"]
-    renderCategories(categories);
-}
-
-function renderCategories(categories) {
-    html = document.querySelector("#new-recipe-category");
-    html2 = document.querySelector("#new-recipe-category")
+//Renders categories to a select tag with id passed as parameter
+function renderCategories(id) {
+    html = document.querySelector(`#${id}`);
     for (let x = 0; x < categories.length; x++) {
         html.innerHTML +=
-            `
-            <option value="${categories[x]}">${categories[x]}</option>
-        `
-        html2.innerHTML +=
             `
             <option value="${categories[x]}">${categories[x]}</option>
         `
@@ -194,7 +183,7 @@ function editRecipe(type) {
                         <label for="new-recipe-difficulty">Difficulty (1-10):</label>
                         <input type="number" id="new-recipe-difficulty" min="1" max="10" placeholder="${recipeState.Difficulty}"><br>
                         <label for="new-recipe-category">Category:</label>
-                        <select id="new-recipe-category" name="recipe-category" placeholder="${recipeState.Category}">
+                        <select id="new-recipe-category" name="recipe-category">
                             
                         </select><br>
                         <textarea type="text" placeholder="${recipeState.Description}" id="new-recipe-description"></textarea><br>
@@ -204,7 +193,7 @@ function editRecipe(type) {
             </div>
         `
     let ingredientHTML = document.querySelector("#new-recipe-form")
-
+    renderCategories("new-recipe-category")
     ingredientHTML.innerHTML = "";
     ingredientId = 0
     ingredientArr = []
