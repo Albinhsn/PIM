@@ -34,10 +34,14 @@ public class Main {
         // Getting the list of all recipes using Recipe.java class, responding in json
         app.get("/rest/recipes", (req, res) -> {
             List<Recipe> recipes = db.getRecipes();
+            System.out.println(recipes);
             res.json(recipes);
         });
-
-
+        app.get("/rest/recipes/categories/:id", (req, res) ->{
+            int id = Integer.parseInt(req.getParam("id"));
+            List<Recipe> recipes = db.getRecipesByCategory(id);
+            res.json(recipes);
+        });
         // Getting a specific recipe using it's ID (or other parameters like "name", "difficulty", "length_minutes"),
         // and responding in json
         app.get("/rest/recipes/:id", (req, res) -> {

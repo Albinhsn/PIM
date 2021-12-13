@@ -1,92 +1,55 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recept Bok</title>
-    <link rel= "stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;1,100;1,300;1,400&display=swap" rel="stylesheet"> 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-</head>
-<body>
-    <header>
-        <div class="header">
-            <div class="inner_header">
-                <div class="logo_container">
-                    <h1>Delicious<span>Food</span></h1>
-                </div>
-                <nav>
-                    <ul class="links">
-                        <li><a href="">Home</a>
-                        </li>
-                        <li><a href="#About">About</a>
-                        </li>
-                    </ul>
-                </nav>
-                <div class="search_box">
-                    <input type= "text" placeholder="Search..." class="input">
-                    <div class="btn">
-                        <a href="#"><i class="fa fa-search"></i></a>
-                    </div>
-                </div>
-                <a class="cta" href="#"><button>Sign In</button></a>
-            </div>
-        </div>  
-    </header>
-    
-    </header> 
-            <div class="container start">
-          <form id="home-search-bar" class="form">
-            <input type="text" placeholder="Search Your Recipe..." id="input">
-            <ion-icon name="search" onClick="search(`input`)"></ion-icon>
-          </form>
-          <div class="search-result">                            
-          </div>
-          <h1 class="ortry">Or try searching for:</h1>
-            <div class="search-result-c">
-                  <div class="item">
-                      <img src="./vegitarien.jpg" alt="">
-                      <div class="flex-container">
-                        <h1 class="title">Vegetarian</h1>
-                        <button class="view-btn" href="#" onClick="search(this.id)" id="vegetarian">Search</button>
-                      </div>                
-                  </div>
-                  <div class="item">
-                    <img src="./beef.jpg" alt="">
-                    <div class="flex-container">
-                      <h1 class="title">Beef / Pork</h1>
-                      <button class="view-btn" href="#" onClick="search(this.id)" id="beef">Search</button>
-                    </div>                
-                  </div>
-                  <div class="item">
-                    <img src="./chicken.jpg" alt="">
-                    <div class="flex-container">
-                      <h1 class="title">Chicken</h1>
-                      <button class="view-btn" href="#" onClick="search(this.id)" id="chicken">Search</button>
-                    </div>
-                  </div>
-            </div>
-        </div>
-    <footer>
-        <h2>Delicious<span>Food</span></h2>
-        <p>&copy;2021</p>
-        <div class="social">
-            <h6>Share with</h6>
-            <a href="#"><i class="fa fa-facebook"></i></a>
-            <a href="#"><i class="fa fa-instagram"></i></a>
-            <a href="#"><i class="fa fa-snapchat"></i></a>
-        </div>
-    
 
-    </footer>    
-    
-   
-<script type="text/javascript"src="main.js"></script>
-    </footer>
-    <!--<script src="https://unpkg.com/ionicons@5.1.2/dist/ionicons.js"></script>-->
-    <script type="module" src="https://unpkg.com/ionicons@5.1.2/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule="" src="https://unpkg.com/ionicons@5.1.2/dist/ionicons/ionicons.js"></script>    
-    <script type="text/javascript" src="recipeAPI.js"></script>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="style.css" />
+
+<title>1 - Home</title>
+</head>
+
+<body>
+    <div id="page">
+		
+        <div id="header">
+        	<div id="headerTitle">1 - Home of Fantastic Food</div>            
+        </div>
+
+        <div id="bar">
+
+        	<div class="navLink"><a href="index.html">home</a></div>
+           	<div class="navLink"><a href="outsearch.html">InSearch</a></div>
+            <div class="navLink"><a href="ownsearch.html">OutSearch</a></div>
+            <div class="navLink"><a href="profile.html">Portfolio</a></div>
+            <div class="navLink"><a href="index.html"></a></div>
+            <div class="navLink"><a href="index.html"></a></div>
+            <div class="navLink"><a href="index.html"></a></div>
+      </div>
+
+        <div class="contentTitle"><h1>Create new recipes</h1></div>
+        <div class="contentText">
+			<h1>
+				Add <span style="background-color:rgba(26, 26, 26, 0.199)">new</span> recipe<br class="hide-mob" />
+			</h1>
+			<a href="#" class="button">manage</a>
+			<br/>
+			
+			<hr class="new5">
+			<h1>
+			or <span style="background-color:rgba(26, 26, 26, 0.199)"> search</span> for one</span> <br class="hide-mob" />
+			</h1>
+			<a href="search.html" class="button">Search</a>
+        </div>
+        <div class="contentTitle"><h1>Another Title Goes Here!</h1></div>
+        <div class="contentText">
+          
+          <p>&nbsp;</p>
+          
+        </div>
+        <div class="contentTitle"><h1>Yet Another?</h1></div>
+        <div class="contentText">Each title is an H1 tag, so choose them carefully :)</div>  
+</div>
+        <div id="footer"></div>
+        <script text="text/javascript" src="main.js"></script>
 </body>
 </html>

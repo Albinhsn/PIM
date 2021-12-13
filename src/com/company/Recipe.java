@@ -9,7 +9,7 @@ public class Recipe {
     // ---------------------------- Variable declaration -------------------//
     private int id;
     private String name;
-    private int category_id;
+    private int categoryId;
     private int difficulty;
     private String ingredients;
     private String description;
@@ -59,50 +59,50 @@ public class Recipe {
         this.name = name;
     }
 
-    public Recipe(int id, String name, int category_id) {
+    public Recipe(int id, String name, int categoryId) {
         this.id = id;
         this.name = name;
-        this.category_id = category_id;
+        this.categoryId = categoryId;
     }
 
-    public Recipe(int id, String name, int category_id, int difficulty) {
+    public Recipe(int id, String name, int categoryId, int difficulty) {
         this.id = id;
         this.name = name;
-        this.category_id = category_id;
+        this.categoryId = categoryId;
         this.difficulty = difficulty;
     }
 
-    public Recipe(int id, String name, int category_id, int difficulty, String ingredients) {
+    public Recipe(int id, String name, int categoryId, int difficulty, String ingredients) {
         this.id = id;
         this.name = name;
-        this.category_id = category_id;
+        this.categoryId = categoryId;
         this.difficulty = difficulty;
         this.ingredients = ingredients;
     }
 
-    public Recipe(int id, String name, int category_id, int difficulty, String ingredients, String description) {
+    public Recipe(int id, String name, int categoryId, int difficulty, String ingredients, String description) {
         this.id = id;
         this.name = name;
-        this.category_id = category_id;
+        this.categoryId = categoryId;
         this.difficulty = difficulty;
         this.ingredients = ingredients;
         this.description = description;
     }
 
-    public Recipe(int id, String name, int category_id, int difficulty, String ingredients, String description, int length_minutes) {
+    public Recipe(int id, String name, int categoryId, int difficulty, String ingredients, String description, int length_minutes) {
         this.id = id;
         this.name = name;
-        this.category_id = category_id;
+        this.categoryId = categoryId;
         this.difficulty = difficulty;
         this.ingredients = ingredients;
         this.description = description;
         this.length_minutes = length_minutes;
     }
 
-    public Recipe(int id, String name, int category_id, int difficulty, String ingredients, String description, int length_minutes, String image_url) {
+    public Recipe(int id, String name, int categoryId, int difficulty, String ingredients, String description, int length_minutes, String image_url) {
         this.id = id;
         this.name = name;
-        this.category_id = category_id;
+        this.categoryId = categoryId;
         this.difficulty = difficulty;
         this.ingredients = ingredients;
         this.description = description;
@@ -129,11 +129,11 @@ public class Recipe {
     }
 
     public int getCategoryId() {
-        return category_id;
+        return categoryId;
     }
 
-    public void setCategoryId(int category_id) {
-        this.category_id = category_id;
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
     }
 
     public int getDifficulty() {
@@ -184,7 +184,7 @@ public class Recipe {
         return "Recipe{" +
                 "id=" + id +
                 ", name=" + name +
-                ", category_id=" + category_id +
+                ", categoryId=" + categoryId +
                 ", description=" + description +
                 ", ingredients=" + ingredients +
                 ", length_minutes=" + length_minutes +

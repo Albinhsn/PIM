@@ -18,7 +18,7 @@ public class Database {
     public Database() {
 
         try {
-            conn = DriverManager.getConnection("jdbc:sqlite:recipe_book.db");
+            conn = DriverManager.getConnection("jdbc:sqlite:recipe_book1.db");
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -47,7 +47,22 @@ public class Database {
         return recipes;
     }
 
+    public List<Recipe> getRecipesByCategory(int id){
+        List<Recipe> recipes = null;
 
+        try {
+            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM recipes WHERE category_id = ?");
+            ResultSet rs = stmt.executeQuery();
+
+            Recipe[] recipesFromRS = (Recipe[]) Utils.readResultSetToObject(rs, Recipe[].class);
+            recipes = List.of(recipesFromRS);
+            
+            return recipes;
+        } catch (Exception e) {
+            System.out.println(e);
+            return null;
+        }
+    }
     // 2 - Getting the recipe's info using it's ID (or other parameters like "name", "difficulty", "length_minutes")
     public Recipe getRecipeById(int id) {
         Recipe recipe = null;
