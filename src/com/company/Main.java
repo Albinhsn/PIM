@@ -34,7 +34,7 @@ public class Main {
         // Getting the list of all recipes using Recipe.java class, responding in json
         app.get("/rest/recipes", (req, res) -> {
             List<Recipe> recipes = db.getRecipes();
-            System.out.println(recipes);
+            //System.out.println(recipes);
             res.json(recipes);
         });
         app.get("/rest/recipes/categories/:id", (req, res) ->{
@@ -49,11 +49,16 @@ public class Main {
             Recipe recipe = db.getRecipeById(id);
             res.json(recipe);
         });
-
+        app.get("/rest/recipes/name/:name", (req, res) ->{
+            String name = req.getParam("name");
+            List<Recipe> recipe = db.getRecipeByName(name);
+            res.json(recipe);
+        });
 
         // Creating a new recipe
         app.post("/rest/recipes", (req, res) -> {
             Recipe recipe = (Recipe) req.getBody(Recipe.class); //type casting
+            System.out.println(recipe);
             // System.out.println(recipe.toString()); // checking/testing output at console. Uncomment if needed to use
             db.createRecipe(recipe);
             res.send("Create new recipe OK");
@@ -66,6 +71,7 @@ public class Main {
             Recipe recipe = (Recipe) req.getBody(Recipe.class);
             //db.updateRecipe(recipe.getId(), recipe.getName(), recipe.getCategoryId(), recipe.getDifficulty(), recipe.getIngredients(), recipe.getDescription(), recipe.getLength_minutes(), recipe.getImage_url());
             db.updateRecipe(recipe);
+            System.out.println(recipe);
             res.send("Update recipe OK");
         });
 

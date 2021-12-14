@@ -88,7 +88,7 @@ public class Database {
     public void createRecipe(Recipe recipe) {
 
         try {
-            PreparedStatement stmt = conn.prepareStatement("INSERT INTO recipes (name, category_id, difficulty, ingredients, description, length_minutes, image_url) VALUES(?, ?, ?, ?, ?, ?, ?)");  // using "?" to dismiss possibility of sql injection
+            PreparedStatement stmt = conn.prepareStatement("INSERT INTO recipes (name, categoryId, difficulty, ingredients, description, length_minutes, image_url) VALUES(?, ?, ?, ?, ?, ?, ?)");  // using "?" to dismiss possibility of sql injection
             stmt.setString(1, recipe.getName());
             stmt.setInt(2, recipe.getCategoryId());
             stmt.setInt(3, recipe.getDifficulty());
@@ -102,15 +102,30 @@ public class Database {
             throwables.printStackTrace();
         }
     }
-
+    public List<Recipe> getRecipeByName(String name){
+        List<Recipe> recipes = null;
+        try {
+            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM recipes WHERE name LIKE ? ");
+            String x = "%"  + name + "%";
+            stmt.setString(1, x);
+            ResultSet rs = stmt.executeQuery();
+            Recipe[] recipesFromRS = (Recipe[]) Utils.readResultSetToObject(rs, Recipe[].class);
+            recipes = List.of(recipesFromRS);
+            System.out.println(recipes);
+        } catch (Exception e) {
+            System.out.println("Error when Searching by name");
+            e.printStackTrace();
+        }
+        return recipes;
+    }
 
     // 4 - Update a recipe
     public void updateRecipe(Recipe recipe){
 
         try {
-
-            PreparedStatement stmt = conn.prepareStatement("UPDATE recipes SET (name, category_id, difficulty, ingredients, description, length_minutes, image_url) VALUES(?, ?, ?, ?, ?, ?, ?) WHERE id = ?");
-            //             PreparedStatement stmt = conn.prepareStatement("UPDATE recipes SET name = ?, category_id = ?, difficulty = ?, ingredients = ?, description = ?, length_minutes = ?, image_url = ? WHERE id = ?");
+            //PreparedStatement stmt = conn.prepareStatement("UPDATE recipes SET (name, category_id, difficulty, ingredients, description, length_minutes, image_url) VALUES(?, ?, ?, ?, ?, ?, ?) WHERE id = ?");
+            PreparedStatement stmt = conn.prepareStatement("UPDATE recipes SET name = ?, categoryId = ?, difficulty = ?, ingredients = ?, description = ?, length_minutes = ?, image_url = ? WHERE id = ?");
+            System.out.println(stmt);
             stmt.setString(1, recipe.getName());
             stmt.setInt(2, recipe.getCategoryId());
             stmt.setInt(3, recipe.getDifficulty());

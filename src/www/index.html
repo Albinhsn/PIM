@@ -1,55 +1,56 @@
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<link rel="stylesheet" type="text/css" href="style.css" />
-
-<title>1 - Home</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Your Recipe book</title>
+	<link rel="stylesheet" href="assets/demo.css">
+	<link rel="stylesheet" href="assets/header-basic.css">
+	<link href='http://fonts.googleapis.com/css?family=Cookie' rel='stylesheet' type='text/css'>
 </head>
+	<body onload="fetchLocal()">
+		<header class="header-basic">
+			<div class="header-limiter">
+				<h1><a href="./index.html">Your<span >recipe</span>.com</a></h1>
+				<nav>
+					<a href="">Home</a>
+					<a href="./search.html">Search New!</a>					
+				</nav>
+			</div>
+		</header>
+		<main>
+		<div class="hero-section">
+			<div class="hero-section-text">
+				<h1>
+					Add a<span> new</span> <br class="hide-mob" />recipe
+					or <br class="hide-mob" /><span> search</span> <br class="hide-mob" />for one</span> <br class="hide-mob" />
+				</h1>
+			</div>
+			<div class="rightside">
+				<div class="search">
+					<form style="align: left">
+						<input type="text" placeholder="Search Your Recipe..." id="input">
+						<a onClick="fetchLocal('search')">X</a>
+					</form>
+				</div>
+				<div class="test">
 
-<body>
-    <div id="page">
-		
-        <div id="header">
-        	<div id="headerTitle">1 - Home of Fantastic Food</div>            
-        </div>
+				</div>
+			</div>
+		</div>  
+		</main>	
+		<footer>
+			<div class="container">
+				<h3>your<span>recipe</span>.com &copy; 2021</h3>
+			</div>    
+			<div class="container" style="padding-bottom: 10px;">
+				<a style="color: white; padding-right:20px;" href="#"><i class="fa fa-facebook"></i></a>
+				<a style="color: white; padding-right:20px;" href="#"><i class="fa fa-instagram"></i></a>
+				<a style="color: white; padding-right:20px;" href="#"><i class="fa fa-twitter"></i></a>
+			</div>
+		</footer>
+		<script type="text/javascript"src="main.js"></script>
+	</body>
 
-        <div id="bar">
-
-        	<div class="navLink"><a href="index.html">home</a></div>
-           	<div class="navLink"><a href="outsearch.html">InSearch</a></div>
-            <div class="navLink"><a href="ownsearch.html">OutSearch</a></div>
-            <div class="navLink"><a href="profile.html">Portfolio</a></div>
-            <div class="navLink"><a href="index.html"></a></div>
-            <div class="navLink"><a href="index.html"></a></div>
-            <div class="navLink"><a href="index.html"></a></div>
-      </div>
-
-        <div class="contentTitle"><h1>Create new recipes</h1></div>
-        <div class="contentText">
-			<h1>
-				Add <span style="background-color:rgba(26, 26, 26, 0.199)">new</span> recipe<br class="hide-mob" />
-			</h1>
-			<a href="#" class="button">manage</a>
-			<br/>
-			
-			<hr class="new5">
-			<h1>
-			or <span style="background-color:rgba(26, 26, 26, 0.199)"> search</span> for one</span> <br class="hide-mob" />
-			</h1>
-			<a href="search.html" class="button">Search</a>
-        </div>
-        <div class="contentTitle"><h1>Another Title Goes Here!</h1></div>
-        <div class="contentText">
-          
-          <p>&nbsp;</p>
-          
-        </div>
-        <div class="contentTitle"><h1>Yet Another?</h1></div>
-        <div class="contentText">Each title is an H1 tag, so choose them carefully :)</div>  
-</div>
-        <div id="footer"></div>
-        <script text="text/javascript" src="main.js"></script>
-</body>
 </html>

@@ -1,12 +1,11 @@
 //Variabler: 
 const APP_ID = "ab24be7e";
 const APP_key = "b34b014d9e8173560752aa70fd8713ee";
-let categories = []
 let recipes = []
 let recipeState = {
     id: 0,
     name: "",
-    category_id: 0,
+    categoryId: 0,
     difficulty: 0,
     ingredients: "",
     description: "",
@@ -21,7 +20,6 @@ let recipeState = {
         setAPIrecipes //refactors API format to recipeState and saves in recipes
         getCategories //Fetch categories from database
         renderCategories //Renders them in select 
-        addImage //Adds html to add image/file
         deleteRecipe //Delete request for recipe by id
         updateRecipe //Update request for recipe by id
         postRecipe //Post request for recipe
@@ -30,10 +28,11 @@ let recipeState = {
         editRecipe //Renders form for editing a saved recipe
 */
 function setState(data) {
+    recipeState.id = data.id
     recipeState.name = data.name
     recipeState.length_minutes = data.length_minutes
     recipeState.difficulty = data.difficulty
-    recipeState.category_id = data.category
+    recipeState.categoryId = data.category
     recipeState.description = data.description
     recipeState.ingredients = data.ingredients
     recipeState.image_url = data.image_url
@@ -42,7 +41,7 @@ function clearRecipeState(){
     recipeState = {
         id: 0,
         name: "",
-        category_id: 0,
+        categoryId: 0,
         difficulty: 0,
         ingredients: "",
         description: "",
@@ -60,6 +59,17 @@ async function fetchAPI() {
     console.log(data)
     setAPIrecipes(data.hits)
 }
+async function fetchLocal(x) {
+    recipes = []
+    let input = "a"
+    if(x === "search"){
+    input = document.querySelector("#input").value
+    }
+    const response = await fetch(`/rest/recipes/name/${input}`)
+    const data = await response.json();
+    recipes = data
+    renderRecipes();
+}
 //Formats api response data to recipeState
 function setAPIrecipes(data) {
     recipes = []
@@ -67,7 +77,7 @@ function setAPIrecipes(data) {
     data.map(data =>{
         clearRecipeState();
         recipeState.name = data.recipe.label
-        recipeState.category_id = data.recipe.cuisineType[0]
+        recipeState.categoryId = data.recipe.cuisineType[0]
         recipeState.difficulty = 0,
         data.recipe.ingredients.map(ingredient =>{
             recipeState.ingredients += ingredient.text + "\n"
@@ -80,7 +90,7 @@ function setAPIrecipes(data) {
         recipes.push(recipeState)
     })
     console.log(recipes)
-    renderRecipes();
+    renderAPIRecipes();
 }
 //Hämtar kategorier från databasen
 async function getCategories(){
@@ -100,15 +110,7 @@ function renderCategories() {
     }
 }
 //Ability to add an image to new/edit recipe
-function addImage() {
-    var image = document.getElementById("upload").files[0];
 
-    var reader = new FileReader();
-    reader.onload = function (e) {
-        document.getElementById("new-recipe-img").src = e.target.result
-    }
-    reader.readAsDataURL(image);
-}
 
 //CRUD för recept
 //Deletes a recipe
@@ -123,16 +125,16 @@ async function deleteRecipe() {
 async function updateRecipe(){
     //Get data from form and set recipeState
     let data = {
-        name: document.querySelector(""),
-        category_id: document.querySelector(""),
-        difficulty: document.querySelector(""),
-        ingredients: document.querySelector(""),
-        description: document.querySelector(""),
-        length_minutes: document.querySelector(""),
-        image_url: document.querySelector("")
+        id: recipeState.id,
+        name: document.querySelector("#form-name").value,
+        categoryId: document.querySelector("#form-category").value,
+        difficulty: document.querySelector("#form-difficulty").value,
+        ingredients: document.querySelector("#form-ingredients").value,
+        description: document.querySelector("#form-description").value,
+        length_minutes: document.querySelector("#form-time").value,
+        image_url: document.querySelector("#form-file").src
     }
     setState(data)
-
     let response = await fetch(`/rest/recipes/${recipeState.id}`,{
         method: 'PUT',
         body: JSON.stringify(recipeState)
@@ -142,6 +144,7 @@ async function updateRecipe(){
 //Posts recipeState
 async function postRecipe(){
     console.log("Posting recipe")
+    recipeState.categoryId = 1
     let response = await fetch(`/rest/recipes`,{
         method: 'POST',
         body: JSON.stringify(recipeState)
@@ -149,7 +152,7 @@ async function postRecipe(){
     console.log(response)
 }
 async function getRecipesByCategory(){
-    response = await fetch(`/rest/recipes/categories/${recipeState.category_id}`)
+    response = await fetch(`/rest/recipes/categories/${recipeState.categoryId}`)
     recipes = await response.json();
     renderRecipes();
 }
@@ -157,19 +160,66 @@ async function getRecipesByCategory(){
 async function getRecipes(){
     response = await fetch('/rest/recipes')
     recipes = await response.json()
+    console.log("Get Recipes Clicked")
+    console.log(recipes + " h")
     renderRecipes()
 }
 //Render recipes array
 function renderRecipes(){
     let html = document.querySelector(`.test`)
-    console.log(recipes)
-    html.innerHTML = "";
+    console.log("Render Recipes Clicked")
+    html.innerHTML = ""
     recipes.map(recipe =>{
         html.innerHTML += 
         `
-            <div>${recipe.name}
-                <a onClick="renderSpecificRecipe(${recipe.name})">X</a>
-            </div>
+        <div class="recipe-card">
+            <a href="recipe address by ID" onClick="renderSpecificRecipe('${recipe.name}', 'local')"><h1>${recipe.name}</h1></a>
+           <figure>
+		        <img src="${recipe.image_url}" alt="Cover image" />
+	        </figure>
+	
+	        <div class="card-meta">
+		        <p class="dish-type">${recipe.categoryId}</p>
+		
+		        <ul class="dish-stats">
+			        <li>
+				        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+					        <path d="M8 2C4.6875 2 2 4.6875 2 8C2 11.3125 4.6875 14 8 14C11.3125 14 14 11.3125 14 8C14 4.6875 11.3125 2 8 2Z" stroke-miterlimit="10"/>
+					        <path d="M8 4V8.5H11" stroke-linecap="round" stroke-linejoin="round"/>
+				        </svg>
+			        </li>
+		        </ul>
+	        </div>
+        </div >
+        `
+    })
+}
+function renderAPIRecipes() {
+    let html = document.querySelector(`.test`)
+    console.log("Render Recipes Clicked")
+    html.innerHTML = "";
+    recipes.map(recipe => {
+        html.innerHTML +=
+            `
+        <div class="recipe-card">
+            <a href="recipe address by ID" onClick="renderSpecificRecipe('${recipe.name}', 'API')"><h1>${recipe.name}</h1></a>
+           <figure>
+		        <img src="${recipe.image_url}" alt="Cover image" />
+	        </figure>
+	
+	        <div class="card-meta">
+		        <p class="dish-type">${recipe.categoryId}</p>
+		
+		        <ul class="dish-stats">
+			        <li>
+				        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+					        <path d="M8 2C4.6875 2 2 4.6875 2 8C2 11.3125 4.6875 14 8 14C11.3125 14 14 11.3125 14 8C14 4.6875 11.3125 2 8 2Z" stroke-miterlimit="10"/>
+					        <path d="M8 4V8.5H11" stroke-linecap="round" stroke-linejoin="round"/>
+				        </svg>
+			        </li>
+		        </ul>
+	        </div>
+        </div >
         `
     })
 }
@@ -181,58 +231,97 @@ function editRecipe(id){
             setState(recipes[x])
         }
     }
-    let html = document.querySelector("");
+    console.log("Editing")
+    console.log(recipeState)
+    let html = document.querySelector(".test");
     html.innerHTML = "";
     //Render form to edit recipe
     html.innerHTML +=
     `
         <div class="formbuilder-file form-group field-file-1639391348525">
-        <label for="file-1639391348525" class="formbuilder-file-label">File Upload</label>
-        <input type="file" class="form-control" name="file-1639391348525" access="false" multiple="false" id="file-1639391348525">
+        <label for="file-1639391348525" class="formbuilder-file-label">Välj Bild</label>
+        <input type="file" class="form-control" src="" "name="file-1639391348525" access="false" multiple="false" id="form-file">
     </div>
     <div class="formbuilder-text form-group field-text-1639391406032">
         <label for="text-1639391406032" class="formbuilder-text-label">Name</label>
-        <input type="text" class="form-control" name="text-1639391406032" access="false" id="text-1639391406032">
+        <input type="text" value="${recipeState.name}" class="form-control" name="text-1639391406032" access="false" id="form-name">
     </div>
     <div class="formbuilder-select form-group field-select-1639391470543">
         <label for="select-1639391470543" class="formbuilder-select-label">Categories</label>
-        <select class="form-control" name="select-1639391470543" id="select-1639391470543">
-           
-        </select>
+         <input type="text" value="${recipeState.categoryId}"class="form-control" name="text-1639391406032" access="false" id="form-category">
     </div>
     <div class="formbuilder-textarea form-group field-textarea-1639391425813">
         <label for="textarea-1639391425813" class="formbuilder-textarea-label">Ingredienser</label>
-        <textarea type="textarea" class="form-control" name="textarea-1639391425813" access="false" id="textarea-1639391425813"></textarea>
+        <textarea type="textarea"  class="form-control" name="textarea-1639391425813" access="false" id="form-ingredients">${recipeState.ingredients}</textarea>
     </div>
     <div class="formbuilder-textarea form-group field-textarea-1639391371823">
         <label for="textarea-1639391371823" class="formbuilder-textarea-label">Description</label>
-        <textarea type="textarea" class="form-control" name="textarea-1639391371823" access="false" id="textarea-1639391371823"></textarea>
+        <textarea type="textarea" placeholder="" class="form-control" name="textarea-1639391371823" access="false" id="form-description">${recipeState.description}</textarea>
     </div>
     <div class="formbuilder-number form-group field-number-1639391506859">
         <label for="number-1639391506859" class="formbuilder-number-label">Time</label>
-        <input type="number" class="form-control" name="number-1639391506859" access="false" id="number-1639391506859">
+        <input type="number" value="${recipeState.length_minutes}" placeholder="" class="form-control" name="number-1639391506859" access="false" id="form-time">
     </div>
     <div class="formbuilder-number form-group field-number-1639391494762">
         <label for="number-1639391494762" class="formbuilder-number-label">Difficulty</label>
-        <input type="number" class="form-control" name="number-1639391494762" access="false" id="number-1639391494762">
+        <input type="number" value="${recipeState.difficulty}" class="form-control" name="number-1639391494762" access="false" id="form-difficulty">
         <a onClick="updateRecipe()">X</a>
     </div>
     `
+    //Mappar ut categories arrayn ifall vi ska ha dem i en <select/>
+    /*let x = document.querySelector("#form-category")
+    x.innerHTML = "";
+    categories.map(category =>{
+        console.log(category+ " A")
+        x += 
+        `
+            <option value="${category}">${category}<option/>
+        `
+    })*/
+    setImage();
+}
+function setImage(){
+    let html = document.querySelector("#form-file")
+    html.src = recipeState.image_url
+    console.log(html)
 }
 //Render recipeState
-function renderSpecificRecipe(y){
-    console.log("Rendering specific")
+function renderSpecificRecipe(name, type){
+    console.log("Rendering specific " + type)
     let html = document.querySelector(`.test`)
+    console.log(recipeState)
     for(let x = 0; x<recipes.length; x++){
-        if(recipes[x].name === y){
+        if(recipes[x].name === name){
             setState(recipes[x])
+            console.log(recipeState)
         }
     }
+    console.log(type);
     html.innerHTML = "";
     //Map out recipeState object to html 
     html.innerHTML += 
     `
-    <h2>${recipeState.name}</h2>
-    <a onClick="postRecipe()">Submit</a>
+    <div class="item">
+        <img src="${recipeState.image_url}">
+        <div class="flex-container">
+            <h1 class="title">${recipeState.name}</h1>
+        </div>
+        <p class="item-data">Cuisine: ${recipeState.categoryId}</p>
+        <p class="item-data">${recipeState.ingredients}</p>
+        <div class="specific"></div>
+        <div class="deleteMe!"></div>
+    </div>
+
     `
+    if(type === "API"){
+        let x = document.querySelector(".specific")
+        x.innerHTML = ""
+        x.innerHTML += `<a class="view-btn" href="" onClick="postRecipe()">Save Recipe</a>`
+    }else if(type === "local"){
+        let x = document.querySelector(".specific")
+        x.innerHTML = ""
+        x.innerHTML += `<a class="view-btn" onClick="editRecipe(${recipeState.id})">Edit Recipe</a>`
+
+    }
 }
+

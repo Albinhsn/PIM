@@ -1,66 +1,83 @@
+<!DOCTYPE html>
+<html>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<link rel="stylesheet" type="text/css" href="style.css" />
 
-<title>2 - Search recipe</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>Create a new recipe</title>
+
+	<link rel="stylesheet" href="assets/demo.css">
+	<link rel="stylesheet" href="assets/header-basic.css">
+	<link href='http://fonts.googleapis.com/css?family=Cookie' rel='stylesheet' type='text/css'>
+
+
 </head>
+	<body>
+		<header class="header-basic">
+			<div class="header-limiter">
+				<h1><a href="./index.html">Your<span >recipe</span>.com</a></h1>
+				<nav>
+					<a href="./index.html">Home</a>
+					<a href="./search.html">Search</a>					
+				</nav>
+			</div>
 
-<body>
-    <div id="page">
+		</header>
+		<main>
+		<div class="flex-container">
+			<div class="flex-item-left">
+				<div class="left-section">
+					<div class="left-section-text">
+						<h1>
+							Just <br class="hide-mob" />
+							<span>search</span> for it<br class="hide-mob" />
+							
+							and be <span> amazed</span><br class="hide-mob" />
+							</h1>
+					</div>
+				</div>	
+			</div>
+			<div class="flex-item-right">
+				<div class="right-section" style="margin-top: 100px;">
+					<div class="right-section-text">
+						<h2>Seach for your recipes online</h2>
+						<form style="align: left">
+							<input type="text" placeholder="Search Recipe with API..." id="apiSearch">
+							<a name="search" onClick="fetchAPI()">X</a>
+						</form>
+					</div>
+					<div class="test">
+
+					</div>
+				</div>
+			</div>
+		</div>	
+	<div style="padding-left: 50px;">
+		<h3>Here are the result of your search:</h3>
+		 <!-- this shows the result of the search on the external API -->
+	</div>			
+
 		
-        <div id="header">
-        	<div id="headerTitle">2 - Search recipes</div>            
-        </div>
+		  
+		  
+		</main>	
+		
+				
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+		<footer>
+			<div class="container">
+				<h3>your<span>recipe</span>.com &copy; 2021</h3>
+			</div>    
+			<div class="container" style="padding-bottom: 10px;">
+				<a style="color: white; padding-right:20px;" href="#"><i class="fa fa-facebook"></i></a>
+				<a style="color: white; padding-right:20px;" href="#"><i class="fa fa-instagram"></i></a>
+				<a style="color: white; padding-right:20px;" href="#"><i class="fa fa-twitter"></i></a>
+			</div>
+		</footer>
+		<script type="text/javascript"src="main.js"></script>
+	</body>
 
-        <div id="bar">
-
-        	<div class="navLink"><a href="index.html">home</a></div>
-           	<div class="navLink"><a href="outsearch.html">InSearch</a></div>
-            <div class="navLink"><a href="ownsearch.html">OutSearch</a></div>
-            <div class="navLink"><a href="profile.html">Portfolio</a></div>
-            <div class="navLink"><a href="index.html"></a></div>
-            <div class="navLink"><a href="index.html"></a></div>
-            <div class="navLink"><a href="index.html"></a></div>
-      </div>
-
-        <div class="contentTitle"><h1>Search your own recipes or search online </h1></div>
-        <div class="contentText">
-			
-			<div>
-                Search own recipes
-                <form style="align: left">
-                    <input type="text" placeholder="Search Your Recipe..." id="input">
-                    <ion-icon name="search" onClick="search(`input`)"></ion-icon>
-                </form>
-            </div>
-            
-            <hr class="new5">
-            
-            <div>
-                Search recipes online
-                <form style="align: left">
-                    <input type="text" placeholder="Search Your Recipe..." id="apiSearch">
-                    <ion-icon name="search" onClick="search(`input`)"></ion-icon>
-                </form>
-                <a onClick="fetchAPI()">X</a>
-                <div class="test">
-
-                </div>
-            </div>
-        </div>
-        <div class="contentTitle"><h1>Another Title Goes Here!</h1></div>
-        <div class="contentText">
-          
-          <p>&nbsp;</p>
-          
-        </div>
-        <div class="contentTitle"><h1>Yet Another?</h1></div>
-        <div class="contentText">Each title is an H1 tag, so choose them carefully :)</div>  
-</div>
-        <div id="footer"></div>
-</body>
-<script text="text/javascript" src="main.js"></script>
 </html>

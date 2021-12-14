@@ -1,54 +1,87 @@
+<!DOCTYPE html>
+<html>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<link rel="stylesheet" type="text/css" href="style.css" />
 
-<title>3 - Manage</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>Create a new recipe</title>
+
+	<link rel="stylesheet" href="assets/demo.css">
+	<link rel="stylesheet" href="assets/header-basic.css">
+	<link href='http://fonts.googleapis.com/css?family=Cookie' rel='stylesheet' type='text/css'>
+
+
 </head>
 
-<body>
-    <div id="page">
-		
-        <div id="header">
-        	<div id="headerTitle">3 - Manage your recipes</div>            
-        </div>
+	<body>
 
-        <div id="bar">
+		<header class="header-basic">
 
-        	<div class="navLink"><a href="index.html">home</a></div>
-           	<div class="navLink"><a href="outsearch.html">InSearch</a></div>
-            <div class="navLink"><a href="ownsearch.html">OutSearch</a></div>
-            <div class="navLink"><a href="profile.html">Portfolio</a></div>
-            <div class="navLink"><a href="index.html"></a></div>
-            <div class="navLink"><a href="index.html"></a></div>
-            <div class="navLink"><a href="index.html"></a></div>
-      </div>
+			<div class="header-limiter">
 
-        <div class="contentTitle"><h1>Create new recipes</h1></div>
-        <div class="contentText">
-			<h1>
-			Go to create page
-			</h1>
-			<a href="#" class="button">Go to Create page</a>
-			<br/>
+				<h1><a href="#">Your<span >recipe</span>.com</a></h1>
+
+				<nav>
+					<a href="./index.html">Home</a>
+					<a href="./create.html">Create Recipe</a>
+					<a href="./manage.html">Manage Recipe</a>
+					<a href="./search.html">Search</a>					
+					<a href="./about.html">About</a>
+				</nav>
+			</div>
+
+		</header>
+
+		<!-- The content of your page would go here. -->
+		<main>
+
+
+		<div class="flex-container">
+			<div class="flex-item-left">
+				<div class="left-section">
+					<div class="left-section-text">
+						<h1>
+							Choos what <br class="hide-mob" /> do <span> you</span> <br class="hide-mob" />want to do with <br class="hide-mob" />
+							<span> recipes</span> <br class="hide-mob" /></span>
+						</h1>
+					</div>
+				</div>	
+			</div>
+			<div class="flex-item-right">
+				<div class="right-section">
+					<div class="right-section-text">
+						<ul>
+							<div style="margin-top:100px;"><a href="./create.html" class="button">Create</a></divstyle><br><br>
+							<div><a href="./edit.html" class="button">Edit / Delete</a></div>
+						</ul>
+					</div>
+				</div>	
+			</div>
 			
-			<hr class="new5">
-			<h1>
-			Go to edit page
-			</h1>
-			<a href="#" class="button">Go to Edit/Delete page</a>
-        </div>
-        <div class="contentTitle"><h1>Another Title Goes Here!</h1></div>
-        <div class="contentText">
-          
-          <p>&nbsp;</p>
-          
-        </div>
-        <div class="contentTitle"><h1>Yet Another?</h1></div>
-        <div class="contentText">Each title is an H1 tag, so choose them carefully :)</div>  
-</div>
-        <div id="footer"></div>
-</body>
+			
+		
+		  
+		  
+		</main>	
+		
+				
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+		<footer>
+			<div class="container">
+				<h3>your<span>recipe</span>.com &copy; 2021</h3>
+			</div>    
+			<div class="container" style="padding-bottom: 10px;">
+				<a style="color: white; padding-right:20px;" href="#"><i class="fa fa-facebook"></i></a>
+				<a style="color: white; padding-right:20px;" href="#"><i class="fa fa-instagram"></i></a>
+				<a style="color: white; padding-right:20px;" href="#"><i class="fa fa-twitter"></i></a>
+			</div>
+		</footer>
+		<script type="text/javascript"src="recipe.js"></script>
+		<script type="text/javascript"src="recipeAPI.js"></script>
+		<script type="text/javascript"src="main.js"></script>
+	</body>
+
 </html>
