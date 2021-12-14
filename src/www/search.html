@@ -21,48 +21,32 @@
 				<h1><a href="./index.html">Your<span >recipe</span>.com</a></h1>
 				<nav>
 					<a href="./index.html">Home</a>
-					<a href="./search.html">Search</a>					
+					<a onClick="createRecipe()">Add new!</a>
+					<a href="./search.html">Search new!</a>					
 				</nav>
 			</div>
 
 		</header>
 		<main>
-		<div class="flex-container">
-			<div class="flex-item-left">
-				<div class="left-section">
-					<div class="left-section-text">
-						<h1>
-							Just <br class="hide-mob" />
-							<span>search</span> for it<br class="hide-mob" />
-							
-							and be <span> amazed</span><br class="hide-mob" />
-							</h1>
-					</div>
-				</div>	
+		<div class="hero-section">
+			<div class="hero-section-text">
+				<h1>
+					Add a<span> new</span> <br class="hide-mob" />recipe
+					or <br class="hide-mob" /><span> search</span> <br class="hide-mob" />for one</span> <br class="hide-mob" />
+				</h1>
 			</div>
-			<div class="flex-item-right">
-				<div class="right-section" style="margin-top: 100px;">
-					<div class="right-section-text">
-						<h2>Seach for your recipes online</h2>
-						<form style="align: left">
-							<input type="text" placeholder="Search Recipe with API..." id="apiSearch">
-							<a name="search" onClick="fetchAPI()">X</a>
-						</form>
-					</div>
-					<div class="test">
+			<div class="rightside">
+				<div class="search">
+					<form style="align: left" class="search-form">
+						<input type="text" placeholder="Search For new!" id="apiSearch">
+						<button class="view-btn"><a onClick="fetchAPI()" class="view-btn" id="search-btn">Search</a></button>
+					</form>
+				</div>
+				<div class="search-result">
 
-					</div>
 				</div>
 			</div>
-		</div>	
-	<div style="padding-left: 50px;">
-		<h3>Here are the result of your search:</h3>
-		 <!-- this shows the result of the search on the external API -->
-	</div>			
-
-		
-		  
-		  
+		</div>  
 		</main>	
 		
 				

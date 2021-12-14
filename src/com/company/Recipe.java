@@ -9,7 +9,7 @@ public class Recipe {
     // ---------------------------- Variable declaration -------------------//
     private int id;
     private String name;
-    private int categoryId;
+    private String categoryId;
     private int difficulty;
     private String ingredients;
     private String description;
@@ -59,20 +59,20 @@ public class Recipe {
         this.name = name;
     }
 
-    public Recipe(int id, String name, int categoryId) {
+    public Recipe(int id, String name, String categoryId) {
         this.id = id;
         this.name = name;
         this.categoryId = categoryId;
     }
 
-    public Recipe(int id, String name, int categoryId, int difficulty) {
+    public Recipe(int id, String name, String categoryId, int difficulty) {
         this.id = id;
         this.name = name;
         this.categoryId = categoryId;
         this.difficulty = difficulty;
     }
 
-    public Recipe(int id, String name, int categoryId, int difficulty, String ingredients) {
+    public Recipe(int id, String name, String categoryId, int difficulty, String ingredients) {
         this.id = id;
         this.name = name;
         this.categoryId = categoryId;
@@ -80,7 +80,7 @@ public class Recipe {
         this.ingredients = ingredients;
     }
 
-    public Recipe(int id, String name, int categoryId, int difficulty, String ingredients, String description) {
+    public Recipe(int id, String name, String categoryId, int difficulty, String ingredients, String description) {
         this.id = id;
         this.name = name;
         this.categoryId = categoryId;
@@ -89,7 +89,7 @@ public class Recipe {
         this.description = description;
     }
 
-    public Recipe(int id, String name, int categoryId, int difficulty, String ingredients, String description, int length_minutes) {
+    public Recipe(int id, String name, String categoryId, int difficulty, String ingredients, String description, int length_minutes) {
         this.id = id;
         this.name = name;
         this.categoryId = categoryId;
@@ -99,7 +99,7 @@ public class Recipe {
         this.length_minutes = length_minutes;
     }
 
-    public Recipe(int id, String name, int categoryId, int difficulty, String ingredients, String description, int length_minutes, String image_url) {
+    public Recipe(int id, String name, String categoryId, int difficulty, String ingredients, String description, int length_minutes, String image_url) {
         this.id = id;
         this.name = name;
         this.categoryId = categoryId;
@@ -128,11 +128,11 @@ public class Recipe {
         this.name = name;
     }
 
-    public int getCategoryId() {
+    public String getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(int categoryId) {
+    public void setCategoryId(String categoryId) {
         this.categoryId = categoryId;
     }
 

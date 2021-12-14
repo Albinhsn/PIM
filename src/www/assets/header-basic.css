@@ -90,11 +90,36 @@ html {
 	}
 
 }
+.hero-section-text{
+	width: 30%;
+}
+.rightside{
+	width: 70%;
+}
+.edit-form{
+	width: 40%;
+	color: black !important;
+}
+.search{
+	margin-top: 20px;
+	margin-left: 20%;
 
+}
+.search-form{
+	width: 450px;
+	display: flex;
+}
+#search-btn{
+	width: 50px;
+	margin-top: 0 !important;
+	height: 73px;
+	text-align: center;
+}
 .hero-section {
-	/*background: url(../images/headers.jpg) 100% no-repeat;*/
+	background: url(../images/headers.jpg) 100% no-repeat;
 	background-size: cover;
 	height: 100vh;
+	width: 100%;
 	text-align: left;
 	display: -webkit-flex;
 	display: -ms-flexbox;
@@ -251,12 +276,8 @@ footer .container{padding-top:10px;padding-bottom:0px;display:flex;}
 footer .container h2{color:inherit;text-transform:uppercase;font-size:32px;font-weight:900}
 footer .container h3 span{color:#6ee010;}
 footer .container a{font-size:20px; padding-right: 20px; color:white}
-.rightside{
-	margin-top: 100px;
-	margin-right: 15%;
-}
 .item {
-  width: 100%;
+  width: 50%;
   border-radius: 8px;
   background-color: rgb(37, 37, 37);
   padding: 15px;
@@ -316,6 +337,7 @@ footer .container a{font-size:20px; padding-right: 20px; color:white}
 	font-family: 'Poppins', sans-serif;
 	line-height: 1.5;
 	width: 16rem;
+	margin-bottom: 10px;
 }
 
 .recipe-card figure {
@@ -380,3 +402,17 @@ footer .container a{font-size:20px; padding-right: 20px; color:white}
 	stroke: var(--card-text-color);
 	stroke-opacity: .75;
 }
+.search-result {
+
+margin-top: 50px;
+
+width: 100%;
+
+display: grid;
+
+/*grid-gap: 10px;*/
+
+grid-template: auto / repeat(auto-fit, minmax(300px, 1fr));
+
+}
+

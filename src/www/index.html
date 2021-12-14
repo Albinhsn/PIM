@@ -15,6 +15,7 @@
 				<h1><a href="./index.html">Your<span >recipe</span>.com</a></h1>
 				<nav>
 					<a href="">Home</a>
+					<a onClick="createRecipe()">Add new!</a>
 					<a href="./search.html">Search New!</a>					
 				</nav>
 			</div>
@@ -29,18 +30,17 @@
 			</div>
 			<div class="rightside">
 				<div class="search">
-					<form style="align: left">
+					<form class="search-form" style="align: left">
 						<input type="text" placeholder="Search Your Recipe..." id="input">
-						<a onClick="fetchLocal('search')">X</a>
+						<button class="view-btn"><a onClick="fetchLocal('search')" class="view-btn" id="search-btn">Search</a></button>
 					</form>
 				</div>
-				<div class="test">
-
+				<div class="search-result">
 				</div>
 			</div>
 		</div>  
 		</main>	
-		<footer>
+		<!-- <footer>
 			<div class="container">
 				<h3>your<span>recipe</span>.com &copy; 2021</h3>
 			</div>    
@@ -50,6 +50,7 @@
 				<a style="color: white; padding-right:20px;" href="#"><i class="fa fa-twitter"></i></a>
 			</div>
 		</footer>
+		-->
 		<script type="text/javascript"src="main.js"></script>
 	</body>
 

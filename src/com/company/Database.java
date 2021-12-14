@@ -34,9 +34,13 @@ public class Database {
         List<Recipe> recipes = null;
 
         try {
+            //Query
             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM recipes");
+            
+            //Resultat
             ResultSet rs = stmt.executeQuery();
 
+            //Svaret
             Recipe[] recipesFromRS = (Recipe[]) Utils.readResultSetToObject(rs, Recipe[].class);
             recipes = List.of(recipesFromRS);
 
@@ -90,7 +94,7 @@ public class Database {
         try {
             PreparedStatement stmt = conn.prepareStatement("INSERT INTO recipes (name, categoryId, difficulty, ingredients, description, length_minutes, image_url) VALUES(?, ?, ?, ?, ?, ?, ?)");  // using "?" to dismiss possibility of sql injection
             stmt.setString(1, recipe.getName());
-            stmt.setInt(2, recipe.getCategoryId());
+            stmt.setString(2, recipe.getCategoryId());
             stmt.setInt(3, recipe.getDifficulty());
             stmt.setString(4, recipe.getIngredients());
             stmt.setString(5, recipe.getDescription());
@@ -127,7 +131,7 @@ public class Database {
             PreparedStatement stmt = conn.prepareStatement("UPDATE recipes SET name = ?, categoryId = ?, difficulty = ?, ingredients = ?, description = ?, length_minutes = ?, image_url = ? WHERE id = ?");
             System.out.println(stmt);
             stmt.setString(1, recipe.getName());
-            stmt.setInt(2, recipe.getCategoryId());
+            stmt.setString(2, recipe.getCategoryId());
             stmt.setInt(3, recipe.getDifficulty());
             stmt.setString(4, recipe.getIngredients());
             stmt.setString(5, recipe.getDescription());

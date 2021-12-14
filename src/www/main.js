@@ -5,14 +5,13 @@ let recipes = []
 let recipeState = {
     id: 0,
     name: "",
-    categoryId: 0,
+    categoryId: "",
     difficulty: 0,
     ingredients: "",
     description: "",
     length_minutes: 0,
     image_url: ""
 }
-
 /*
     Funktioner:
         setState
@@ -36,6 +35,7 @@ function setState(data) {
     recipeState.description = data.description
     recipeState.ingredients = data.ingredients
     recipeState.image_url = data.image_url
+    recipeState.categoryId = data.categoryId
 }
 function clearRecipeState(){
     recipeState = {
@@ -143,8 +143,19 @@ async function updateRecipe(){
 }
 //Posts recipeState
 async function postRecipe(){
-    console.log("Posting recipe")
-    recipeState.categoryId = 1
+    let data = {
+        id: recipeState.id,
+        name: document.querySelector("#form-name").value,
+        categoryId: document.querySelector("#form-category").value,
+        difficulty: document.querySelector("#form-difficulty").value,
+        ingredients: document.querySelector("#form-ingredients").value,
+        description: document.querySelector("#form-description").value,
+        length_minutes: document.querySelector("#form-time").value,
+        image_url: document.querySelector("#form-file").src
+    }
+    setState(data)
+    console.log(data)
+    console.log(recipeState)
     let response = await fetch(`/rest/recipes`,{
         method: 'POST',
         body: JSON.stringify(recipeState)
@@ -166,7 +177,7 @@ async function getRecipes(){
 }
 //Render recipes array
 function renderRecipes(){
-    let html = document.querySelector(`.test`)
+    let html = document.querySelector(`.search-result`)
     console.log("Render Recipes Clicked")
     html.innerHTML = ""
     recipes.map(recipe =>{
@@ -195,7 +206,7 @@ function renderRecipes(){
     })
 }
 function renderAPIRecipes() {
-    let html = document.querySelector(`.test`)
+    let html = document.querySelector(`.search-result`)
     console.log("Render Recipes Clicked")
     html.innerHTML = "";
     recipes.map(recipe => {
@@ -224,20 +235,21 @@ function renderAPIRecipes() {
     })
 }
 
-//Passes id as parameter to edit certain recipe
 function editRecipe(id){
-    for(let x = 0; x<recipes.length; x++){
-        if(id === recipes[x].id){
-            setState(recipes[x])
+        for(let x = 0; x<recipes.length; x++){
+            if(id === recipes[x].id){
+                setState(recipes[x])
+            }
         }
-    }
+
     console.log("Editing")
     console.log(recipeState)
-    let html = document.querySelector(".test");
+    let html = document.querySelector(".search-result");
     html.innerHTML = "";
     //Render form to edit recipe
     html.innerHTML +=
     `
+    <div class="edit-form">
         <div class="formbuilder-file form-group field-file-1639391348525">
         <label for="file-1639391348525" class="formbuilder-file-label">Välj Bild</label>
         <input type="file" class="form-control" src="" "name="file-1639391348525" access="false" multiple="false" id="form-file">
@@ -265,7 +277,115 @@ function editRecipe(id){
     <div class="formbuilder-number form-group field-number-1639391494762">
         <label for="number-1639391494762" class="formbuilder-number-label">Difficulty</label>
         <input type="number" value="${recipeState.difficulty}" class="form-control" name="number-1639391494762" access="false" id="form-difficulty">
-        <a onClick="updateRecipe()">X</a>
+        <button class="view-btn"><a href="./index.html"onClick="updateRecipe(${id})">Submit!</a></button
+    </div>
+    `
+    //Mappar ut categories arrayn ifall vi ska ha dem i en <select/>
+    /*let x = document.querySelector("#form-category")
+    x.innerHTML = "";
+    categories.map(category =>{
+        console.log(category+ " A")
+        x += 
+        `
+            <option value="${category}">${category}<option/>
+        `
+    })*/
+    setImage();
+}
+function createRecipe() {
+    console.log("Creating")
+    console.log(recipeState)
+    let html = document.querySelector(".search-result");
+    html.innerHTML = "";
+    //Render form to edit recipe
+    html.innerHTML +=
+        `
+    <div class="edit-form">
+        <div class="formbuilder-file form-group field-file-1639391348525">
+        <label for="file-1639391348525" class="formbuilder-file-label">Välj Bild</label>
+        <input type="file" class="form-control" src="" "name="file-1639391348525" access="false" multiple="false" id="form-file">
+    </div>
+    <div class="formbuilder-text form-group field-text-1639391406032">
+        <label for="text-1639391406032" class="formbuilder-text-label">Name</label>
+        <input type="text" value="${recipeState.name}" class="form-control" name="text-1639391406032" access="false" id="form-name">
+    </div>
+    <div class="formbuilder-select form-group field-select-1639391470543">
+        <label for="select-1639391470543" class="formbuilder-select-label">Categories</label>
+         <input type="text" value="${recipeState.categoryId}"class="form-control" name="text-1639391406032" access="false" id="form-category">
+    </div>
+    <div class="formbuilder-textarea form-group field-textarea-1639391425813">
+        <label for="textarea-1639391425813" class="formbuilder-textarea-label">Ingredienser</label>
+        <textarea type="textarea"  class="form-control" name="textarea-1639391425813" access="false" id="form-ingredients">${recipeState.ingredients}</textarea>
+    </div>
+    <div class="formbuilder-textarea form-group field-textarea-1639391371823">
+        <label for="textarea-1639391371823" class="formbuilder-textarea-label">Description</label>
+        <textarea type="textarea" placeholder="" class="form-control" name="textarea-1639391371823" access="false" id="form-description">${recipeState.description}</textarea>
+    </div>
+    <div class="formbuilder-number form-group field-number-1639391506859">
+        <label for="number-1639391506859" class="formbuilder-number-label">Time</label>
+        <input type="number" value="${recipeState.length_minutes}" placeholder="" class="form-control" name="number-1639391506859" access="false" id="form-time">
+    </div>
+    <div class="formbuilder-number form-group field-number-1639391494762">
+        <label for="number-1639391494762" class="formbuilder-number-label">Difficulty</label>
+        <input type="number" value="${recipeState.difficulty}" class="form-control" name="number-1639391494762" access="false" id="form-difficulty">
+        <button class="view-btn"><a onClick="postRecipe()">Submit!</a></button
+    </div>
+    `
+    //Mappar ut categories arrayn ifall vi ska ha dem i en <select/>
+    /*let x = document.querySelector("#form-category")
+    x.innerHTML = "";
+    categories.map(category =>{
+        console.log(category+ " A")
+        x += 
+        `
+            <option value="${category}">${category}<option/>
+        `
+    })*/
+    setImage();
+}
+function editRecipe(id){
+        for(let x = 0; x<recipes.length; x++){
+            if(id === recipes[x].id){
+                setState(recipes[x])
+            }
+        }
+
+    console.log("Editing")
+    console.log(recipeState)
+    let html = document.querySelector(".search-result");
+    html.innerHTML = "";
+    //Render form to edit recipe
+    html.innerHTML +=
+    `
+    <div class="edit-form">
+        <div class="formbuilder-file form-group field-file-1639391348525">
+        <label for="file-1639391348525" class="formbuilder-file-label">Välj Bild</label>
+        <input type="file" class="form-control" src="" "name="file-1639391348525" access="false" multiple="false" id="form-file">
+    </div>
+    <div class="formbuilder-text form-group field-text-1639391406032">
+        <label for="text-1639391406032" class="formbuilder-text-label">Name</label>
+        <input type="text" value="${recipeState.name}" class="form-control" name="text-1639391406032" access="false" id="form-name">
+    </div>
+    <div class="formbuilder-select form-group field-select-1639391470543">
+        <label for="select-1639391470543" class="formbuilder-select-label">Categories</label>
+         <input type="text" value="${recipeState.categoryId}"class="form-control" name="text-1639391406032" access="false" id="form-category">
+    </div>
+    <div class="formbuilder-textarea form-group field-textarea-1639391425813">
+        <label for="textarea-1639391425813" class="formbuilder-textarea-label">Ingredienser</label>
+        <textarea type="textarea"  class="form-control" name="textarea-1639391425813" access="false" id="form-ingredients">${recipeState.ingredients}</textarea>
+    </div>
+    <div class="formbuilder-textarea form-group field-textarea-1639391371823">
+        <label for="textarea-1639391371823" class="formbuilder-textarea-label">Description</label>
+        <textarea type="textarea" placeholder="" class="form-control" name="textarea-1639391371823" access="false" id="form-description">${recipeState.description}</textarea>
+    </div>
+    <div class="formbuilder-number form-group field-number-1639391506859">
+        <label for="number-1639391506859" class="formbuilder-number-label">Time</label>
+        <input type="number" value="${recipeState.length_minutes}" placeholder="" class="form-control" name="number-1639391506859" access="false" id="form-time">
+    </div>
+    <div class="formbuilder-number form-group field-number-1639391494762">
+        <label for="number-1639391494762" class="formbuilder-number-label">Difficulty</label>
+        <input type="number" value="${recipeState.difficulty}" class="form-control" name="number-1639391494762" access="false" id="form-difficulty">
+        <button class="view-btn"><a href="./index.html"onClick="updateRecipe(${id})">Submit!</a></button
     </div>
     `
     //Mappar ut categories arrayn ifall vi ska ha dem i en <select/>
@@ -285,10 +405,11 @@ function setImage(){
     html.src = recipeState.image_url
     console.log(html)
 }
+
 //Render recipeState
 function renderSpecificRecipe(name, type){
     console.log("Rendering specific " + type)
-    let html = document.querySelector(`.test`)
+    let html = document.querySelector(`.search-result`)
     console.log(recipeState)
     for(let x = 0; x<recipes.length; x++){
         if(recipes[x].name === name){
