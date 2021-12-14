@@ -92,7 +92,7 @@ html {
 }
 
 .hero-section {
-	background: url(../images/headers.jpg) 100% no-repeat;
+	/*background: url(../images/headers.jpg) 100% no-repeat;*/
 	background-size: cover;
 	height: 100vh;
 	text-align: left;
@@ -251,3 +251,132 @@ footer .container{padding-top:10px;padding-bottom:0px;display:flex;}
 footer .container h2{color:inherit;text-transform:uppercase;font-size:32px;font-weight:900}
 footer .container h3 span{color:#6ee010;}
 footer .container a{font-size:20px; padding-right: 20px; color:white}
+.rightside{
+	margin-top: 100px;
+	margin-right: 15%;
+}
+.item {
+  width: 100%;
+  border-radius: 8px;
+  background-color: rgb(37, 37, 37);
+  padding: 15px;
+  overflow: hidden;
+}
+.item img {
+  width: 100%;
+  height: 300px;
+  border-radius: 4px;
+}
+.flex-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.search-result .title {
+  color: whitesmoke;
+  margin: 20px 10px 0 0;
+  font-size: 1.8rem;
+  font-weight: 400;
+}
+.view-btn {
+  text-decoration: none;
+  text-align: center;
+  width: 130px;
+  padding: 10px 0;
+  background-color: #404041;
+  color: whitesmoke;
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-top: 20px;
+  border-radius: 4px;
+  align-self: flex-start;
+}
+.item-data {
+  color: whitesmoke;
+  display: block;
+  margin-top: 10px;
+  font-size: 1.4rem;
+  letter-spacing: 0.05rem;
+  line-height: 2rem;
+}
+:root {
+	--card-bg-color: #fff;
+	--card-text-color: #070705;
+	--dish-type-color: #06c436;
+	--card-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.02), 0 6.7px 5.3px rgba(0, 0, 0, 0.028), 0 12.5px 10px rgba(0, 0, 0, 0.035), 0 22.3px 17.9px rgba(0, 0, 0, 0.042), 0 41.8px 33.4px rgba(0, 0, 0, 0.05), 0 100px 80px rgba(0, 0, 0, 0.07);
+	--global-radius: 16px;
+}
+
+/* Recipe card */
+.recipe-card {
+	background-color: var(--card-bg-color);
+	box-shadow: var(--card-shadow);
+	border-radius: var(--global-radius);
+	color: var(--card-text-color);
+	font-family: 'Poppins', sans-serif;
+	line-height: 1.5;
+	width: 16rem;
+}
+
+.recipe-card figure {
+	width: 100%;
+	margin: 0;
+	height: 14rem;
+	overflow: hidden;
+	border-radius: var(--global-radius) var(--global-radius) 0 0;
+	margin-bottom: 1rem;
+}
+
+.recipe-card figure img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.recipe-card h1 {
+	margin: 0 1.5rem 1rem 1.5rem;
+	font-size: 20px;
+	font-weight: 700;
+	letter-spacing: -1px;
+}
+
+.card-meta {
+	display: flex;
+	justify-content: space-between;
+	margin: 0 1.5rem .5rem;
+	font-size: 13px;
+}
+
+.dish-type {
+	font-weight: 600;
+	letter-spacing: -0.25px;
+	color: #fff;
+	margin: 0;
+	background-color: #32CD32;
+	padding: .25rem 1rem;
+	border-radius: 100px;
+}
+
+.dish-stats {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	display: flex;
+	align-items: center;
+}
+
+.dish-stats li {
+	opacity: .75;
+	display: flex;
+	align-items: center;
+	margin-left: 1rem;
+}
+
+.dish-stats li svg {
+	margin-right: .5rem;
+}
+
+.dish-stats li svg path {
+	stroke: var(--card-text-color);
+	stroke-opacity: .75;
+}
