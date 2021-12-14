@@ -37,12 +37,13 @@ public class User {
         this.age = age;
     }
 
-    @Override
+
+    /*@Override
     public String toString() {
         return "User{" +
                 "idd=" + id +
                 ", name='" + name + '\'' +
                 ", age=" + age +
                 '}';
-    }
+    }*/
 }

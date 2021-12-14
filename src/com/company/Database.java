@@ -4,6 +4,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import express.utils.Utils;
 
 import java.sql.*;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 public class Database {
@@ -64,16 +66,33 @@ public class Database {
     }
 
 
-    public List<Recipe> getRecipes(String search) {
+    public List<Recipe> getRecipes(HashMap body, String search) {
         List<Recipe> recipes = null;
+        StringBuilder query = new StringBuilder();
+        query.append("SELECT * FROM recipes WHERE ");
+        int count = 0;
 
+        for (Iterator i = body.values().iterator(); i.hasNext();) {
+
+            if (count == 0) {
+                query.append(i.next()).append(" LIKE " + search + " ");
+                count = 1;
+            }
+            else {
+
+                query.append(" OR " + i.next() + " LIKE " + search + " ");
+            }
+        }
+
+        System.out.println(query);
 
         try {
 
-            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM recipes WHERE name LIKE ? "); // AND category_id = ?
-            stmt.setString(1, search);
-            //stmt.setInt(2, id);
-            //System.out.println(stmt.enquoteLiteral("'"));
+            PreparedStatement stmt = conn.prepareStatement(query.toString());
+           /* stmt.setString(1, search);
+            stmt.setString(2, search);
+            stmt.setString(3, search);
+            stmt.setInt(4, id); */
             ResultSet rs = stmt.executeQuery();
 
             Recipe[] recipesFromRS = (Recipe[]) Utils.readResultSetToObject(rs, Recipe[].class);
@@ -97,6 +116,91 @@ public class Database {
         return recipes;
     }
 
+
+    public List<Recipe> getRecipesId(HashMap body, String search, int id) {
+        List<Recipe> recipes = null;
+        StringBuilder query = new StringBuilder();
+        query.append("SELECT * FROM recipes WHERE ");
+        int count = 0;
+
+        for (Iterator i = body.values().iterator(); i.hasNext();) {
+
+            if (count == 0) {
+                query.append(i.next()).append(" LIKE " + search);
+                count = 1;
+            }
+            else {
+
+                query.append(" OR " + i.next() + " LIKE " + search);
+            }
+        }
+        query.append("AND category_id = " + id);
+        System.out.println(query);
+
+        try {
+
+            PreparedStatement stmt = conn.prepareStatement(query.toString());
+           /* stmt.setString(1, search);
+            stmt.setString(2, search);
+            stmt.setString(3, search);
+            stmt.setInt(4, id); */
+            ResultSet rs = stmt.executeQuery();
+
+            Recipe[] recipesFromRS = (Recipe[]) Utils.readResultSetToObject(rs, Recipe[].class);
+            recipes = List.of(recipesFromRS);
+
+//            while (rs.next()) {
+//                int id = rs.getInt("id");
+//                String name = rs.getString("name");
+//                int age = rs.getInt("age");
+//
+//                User user = new User(name, age);
+//                users.add(user);
+//            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+
+        return recipes;
+    }
+
+
+
+    public List<Recipe> getRecipes2(String search) {
+        List<Recipe> recipes = null;
+
+        try {
+
+            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM recipes WHERE (name LIKE ? OR description LIKE ? OR ingredients LIKE ?) AND category_id = ?"); // AND category_id = ?
+            stmt.setString(1, search);
+            stmt.setString(2, search);
+            stmt.setString(3, search);
+            //stmt.setInt(4, id);
+            ResultSet rs = stmt.executeQuery();
+
+            Recipe[] recipesFromRS = (Recipe[]) Utils.readResultSetToObject(rs, Recipe[].class);
+            recipes = List.of(recipesFromRS);
+
+//            while (rs.next()) {
+//                int id = rs.getInt("id");
+//                String name = rs.getString("name");
+//                int age = rs.getInt("age");
+//
+//                User user = new User(name, age);
+//                users.add(user);
+//            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+
+        return recipes;
+    }
 
 
 

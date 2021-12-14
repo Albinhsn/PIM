@@ -23,11 +23,22 @@ public class Main {
         Database db = new Database();
         HashMap<String, String> body = new HashMap<>();
         //testar.put("jaha", "test");
+        ArrayList<String> searchA = new ArrayList<>();
 
         //List<User> users = new ArrayList<User>();
 
 
 
+
+        app.get("/rest/userss", (req, res) -> {
+
+            System.out.println("test");
+            body.putAll(req.getBody());
+            System.out.println(body);
+            System.out.println(body.values());
+
+
+        });
 
         app.get("/test1", (req, res) -> {
            //res.send(req.getQuerys().values().toString());
@@ -49,16 +60,55 @@ public class Main {
             //res.send(req.getBody().toString());
                 });
         // req = Request, res = Response
-        app.get("/test", (req, res) -> {
+        app.get("/testar", (req, res) -> {
             //int id = Integer.parseInt(req.getParam("id"));
-            String search = "%" + req.getQuery("name") + "%";
+            //System.out.println(id);
 
-            List<Recipe> recipes = db.getRecipes(search);
+            body.putAll(req.getBody());
+            System.out.println(body);
+
+            String search = "'%" + req.getQuery("search") + "%'";
+            System.out.println(search);
+
+            List<Recipe> recipes = db.getRecipes(body, search);
 
             res.json(recipes);
 
 
         });
+
+        app.get("/testar/:id", (req, res) -> {
+            int id = Integer.parseInt(req.getParam("id"));
+            System.out.println(id);
+
+            body.putAll(req.getBody());
+            System.out.println(body);
+
+            String search = "'%" + req.getQuery("search") + "%'";
+            System.out.println(search);
+
+            List<Recipe> recipes = db.getRecipesId(body, search, id);
+
+            res.json(recipes);
+
+
+        });
+
+        app.get("/test", (req, res) -> {
+            //int id = Integer.parseInt(req.getParam("id"));
+            //String[] body = new String[4];
+            body.putAll(req.getBody());
+            System.out.println(body);
+           /* String search = "%" + req.getQuery("search") + "%";
+            System.out.println(search);
+
+            List<Recipe> recipes = db.getRecipes2(search);
+
+            res.json(recipes); */
+
+
+        });
+
 
         app.get("/hello-world", (req, res) -> {
             res.send("Hello World");
@@ -72,6 +122,7 @@ public class Main {
         });
 
         app.get("/rest/users", (req, res) -> {
+;
             String search = "";
             String[] col = {};
             if (req.getQuery("name") != null) {
