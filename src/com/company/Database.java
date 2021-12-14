@@ -22,17 +22,22 @@ public class Database {
         List<User> users = null;
 
         String cool = "";
+        int count = 0;
         for (String column : col
              ) {
             if(!column.isEmpty()) {
-                cool += col;
+                if (count == 0) {
+                    cool = column;
+                    count = 1;
+                }
+                cool += " OR " + column;
             }
 
         }
 
         try {
 
-            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM users WHERE " + col + " LIKE ?");
+            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM users WHERE " + cool + " LIKE ?");
             stmt.setString(1, search);
             System.out.println(stmt.enquoteLiteral("'"));
             ResultSet rs = stmt.executeQuery();
