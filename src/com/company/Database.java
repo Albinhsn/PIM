@@ -12,7 +12,7 @@ public class Database {
 
     public Database() {
         try {
-            conn = DriverManager.getConnection("jdbc:sqlite:recipe_book.db");
+            conn = DriverManager.getConnection("jdbc:sqlite:recipe_book_new.db");
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -62,6 +62,44 @@ public class Database {
 
         return users;
     }
+
+
+    public List<Recipe> getRecipes(String search) {
+        List<Recipe> recipes = null;
+
+
+        try {
+
+            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM recipes WHERE name LIKE ? "); // AND category_id = ?
+            stmt.setString(1, search);
+            //stmt.setInt(2, id);
+            //System.out.println(stmt.enquoteLiteral("'"));
+            ResultSet rs = stmt.executeQuery();
+
+            Recipe[] recipesFromRS = (Recipe[]) Utils.readResultSetToObject(rs, Recipe[].class);
+            recipes = List.of(recipesFromRS);
+
+//            while (rs.next()) {
+//                int id = rs.getInt("id");
+//                String name = rs.getString("name");
+//                int age = rs.getInt("age");
+//
+//                User user = new User(name, age);
+//                users.add(user);
+//            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+
+        return recipes;
+    }
+
+
+
+
 
     public User getUserById(int id) {
         User user = null;

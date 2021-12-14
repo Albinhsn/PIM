@@ -29,7 +29,7 @@ public class Main {
 
 
 
-        app.get("/test", (req, res) -> {
+        app.get("/test1", (req, res) -> {
            //res.send(req.getQuerys().values().toString());
 
            //res.send(req.getQuerys().toString());
@@ -37,9 +37,8 @@ public class Main {
            int id = Integer.parseInt(req.getQuery("id"));
 
 
-            User user = db.getUserById(id);
 
-            res.json(user);
+
 
 
            //res.send(req.getQuerys().values().toString());
@@ -50,12 +49,26 @@ public class Main {
             //res.send(req.getBody().toString());
                 });
         // req = Request, res = Response
+        app.get("/test", (req, res) -> {
+            //int id = Integer.parseInt(req.getParam("id"));
+            String search = "%" + req.getQuery("name") + "%";
+
+            List<Recipe> recipes = db.getRecipes(search);
+
+            res.json(recipes);
+
+
+        });
+
         app.get("/hello-world", (req, res) -> {
             res.send("Hello World");
         });
 
-        app.get("/about", (req, res) -> {
+        app.get("/about:id", (req, res) -> {
             res.send("This is the about page");
+            System.out.println(req.getQuerys());
+            int id = Integer.parseInt(req.getParam("id"));
+
         });
 
         app.get("/rest/users", (req, res) -> {
