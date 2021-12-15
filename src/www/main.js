@@ -36,6 +36,7 @@ function setState(data) {
     recipeState.ingredients = data.ingredients
     recipeState.image_url = data.image_url
     recipeState.categoryId = data.categoryId
+    console.log(recipeState + " is new state")
 }
 function clearRecipeState(){
     recipeState = {
@@ -191,7 +192,6 @@ function renderRecipes(){
 	
 	        <div class="card-meta">
 		        <p class="dish-type">${recipe.categoryId}</p>
-		
 		        <ul class="dish-stats">
 			        <li>
 				        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -208,8 +208,10 @@ function renderRecipes(){
 function renderAPIRecipes() {
     let html = document.querySelector(`.search-result`)
     console.log("Render Recipes Clicked")
+    console.log(recipes)
     html.innerHTML = "";
     recipes.map(recipe => {
+        console.log(recipe)
         html.innerHTML +=
             `
         <div class="recipe-card">
@@ -410,13 +412,9 @@ function setImage(){
 function renderSpecificRecipe(name, type){
     console.log("Rendering specific " + type)
     let html = document.querySelector(`.search-result`)
-    console.log(recipeState)
-    for(let x = 0; x<recipes.length; x++){
-        if(recipes[x].name === name){
-            setState(recipes[x])
-            console.log(recipeState)
-        }
-    }
+    let x = recipes.find(o => o.name === name)
+    console.log(x)
+    setState(x)
     console.log(type);
     html.innerHTML = "";
     //Map out recipeState object to html 
@@ -430,7 +428,7 @@ function renderSpecificRecipe(name, type){
         <p class="item-data">Cuisine: ${recipeState.categoryId}</p>
         <p class="item-data">${recipeState.ingredients}</p>
         <div class="specific"></div>
-        <div class="deleteMe!"></div>
+        <div class="deleteMe"></div>
     </div>
 
     `
@@ -442,7 +440,8 @@ function renderSpecificRecipe(name, type){
         let x = document.querySelector(".specific")
         x.innerHTML = ""
         x.innerHTML += `<a class="view-btn" onClick="editRecipe(${recipeState.id})">Edit Recipe</a>`
-
+        let y = document.querySelector(".deleteMe")
+        y.innerHTML += `<a href="" class="view-btn" onClick="deleteRecipe()">Delete me!</a>`
     }
 }
 
